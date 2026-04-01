@@ -81,7 +81,24 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
     
 	Thread class start() method is responsible to reister thread with thread scheduler.
 
-## 
+##  case 3 : overloading of run() method 
+
+      Overloading of run()   method  is always  possible , but thread class Thread class start() method can invoke no arguement run() method 
+	  the other overloaded method we have to call explicitly like a normal method call.
+	  
+## case 4 : If we not overriding run method -
+       
+	   If we not overriding run() method , then thread class run() method  will be executed which  has emplty implemnetation.Hence we won't get
+	   any output .
+	   
+##  case 5 : overriding of start() method 
+        If we override start() method, then our start() method will be executed  just like a normal method call and new thread won't be created.
+		
+## case 6  : After starting a thread if we are trying to restart the same thread then we will get RuntimeException saying :
+
+        IllegalThreadStateException.
+		
+		
 
       
  
