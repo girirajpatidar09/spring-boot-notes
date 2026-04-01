@@ -94,6 +94,7 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 ##  case 5 : overriding of start() method 
         If we override start() method, then our start() method will be executed  just like a normal method call and new thread won't be created.
 		
+		
 ## case 6  : After starting a thread if we are trying to restart the same thread then we will get RuntimeException saying :
 
         IllegalThreadStateException.
