@@ -99,6 +99,24 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 
         IllegalThreadStateException.
 		
+
+#  Methods :
+ 
+ 1 . start() method 
+         
+		  public void start()->
+		  
+		  When we call a start() method , a new thread is started and the run() method is executed.
+
+2.  sleep() method 
+
+   a. public static native void sleep(long millisec)  throws InterruptedException
+   b. public static native void sleep(long miilisec , int nanosec)  throws InterruptedException
+   
+    If a thread don't want to perform any operation for a particular amount of time then we should go for sleep() method.
+		  
+ 
+		
 		
 
       
