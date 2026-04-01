@@ -69,8 +69,20 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
  
  # Case ::
  
- ##  case 1:
-     Thread scheduler :
+ ##  case 1:  Thread scheduler 
+     
+	 It is a part of JVM , it is responsible to schedule threads i.e.  if multiple threads are waiting to get a chance of execution then in which
+	 order threads  will be executed ,is decided by scheduler.
+	 We can't expect exact order followed by thread scheduler , it is varied from jvm to jvm ,hence we can't expect thread execution order and 
+	 exact output .
 	 
+ 
+##   case 2:  Importance of thread  class start() method 
+    
+	Thread class start() method is responsible to reister thread with thread scheduler.
+
+## 
+
+      
  
  
