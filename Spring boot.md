@@ -738,6 +738,25 @@ _
 
 	   👉 Applied on individual methods
 	   👉 Defines the specific endpoint
+
+
+## @RequestParam 
+
+   @RequestParam is used to get data from query parameters (URL) and bind it to method arguments.
+   
+      @RestController
+        public class MyController 
+		{
+
+			@GetMapping("/greet")
+			public String greet(@RequestParam String name)
+			{
+				return "Hello " + name;
+			}
+       }
+	   
+	   
+## 
 		
 	   
 	   
