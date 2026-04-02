@@ -767,6 +767,32 @@ _
 		
 		How to used PropertyEditor ?
 		<img width="602" height="466" alt="b1" src="https://github.com/user-attachments/assets/521a1177-3005-4d61-8a0a-e0152db33634" />
+		
+
+
+## @PathVariable
+
+@PathVariable is used in Spring MVC / Spring Boot to extract values from the URL path and bind them to method parameters.
+
+    Example :
+	
+	    @RestController
+        @RequestMapping("/users")
+         public class UserController 
+		 {
+
+          @GetMapping("/{id}")
+           public String getUser(@PathVariable int id) 
+		   {
+             return "User ID: " + id;
+           }
+         }
+		 
+		 
+		 http://localhost:8080/users/101
+		 
+
+
 
 		
 		
