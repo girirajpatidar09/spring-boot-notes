@@ -946,6 +946,9 @@ and automatically register them as beans.
 
 <img width="602" height="332" alt="b2" src="https://github.com/user-attachments/assets/b0a10b8c-aae0-4c05-83d3-baa629e0e8cc" />
 
+<img width="602" height="481" alt="b3" src="https://github.com/user-attachments/assets/8d858ed6-151a-48e1-8e2f-731434bd8083" />
+
+
 
 
 
