@@ -142,7 +142,21 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 4.    suspend method() -It is deprecated 
        
      
+		  Syntax :
+		  public final void suspend()
 		  
+		  Temproarily pauses the execution of a thread without terminating it.
+		  
+		    ❌ 1. Deadlock risk
+			If a thread is suspended while holding a lock:
+			Other threads cannot access that resource
+			Leads to deadlock
+			
+			❌ 2. No control over where it pauses
+			Thread may pause in the middle of critical code.
+			
+			❌ 3. Program can freeze
+			If the suspended thread is never resumed → application may hang.
  
 		
 		
