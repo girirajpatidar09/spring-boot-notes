@@ -182,7 +182,11 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 			No guarantee when the thread will resume safely
 			
 
+6        join() method :
 
+           a. public final void join()  throws InterruptedException
+		   b. public final void join(long millisec)  throws InterruptedException
+		   c. public final void join(long millisec, int nanosec)  throws InterruptedException
 					   
 		   
 		   
