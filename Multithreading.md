@@ -147,6 +147,9 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 		  
 		  Temproarily pauses the execution of a thread without terminating it.
 		  
+		  
+		  Why  it is deprecated :
+		  
 		    ❌ 1. Deadlock risk
 			If a thread is suspended while holding a lock:
 			Other threads cannot access that resource
@@ -157,6 +160,32 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 			
 			❌ 3. Program can freeze
 			If the suspended thread is never resumed → application may hang.
+			
+			
+5 .      resume() method - It is  deprecated 
+
+           Syntax :
+		   public final void resume()
+		   
+		   It resumes execution of a thread that was paused using suspend().
+		   
+		   Why  it is deprecated :
+		   
+		    ❌ 1. Deadlock issue
+			If a thread is suspended while holding a lock:
+			Other threads are blocked
+			Even after resume(), program behavior becomes inconsistent
+			❌ 2. Timing problems
+			If resume() is called before suspend(), it has no effect
+			Thread may remain suspended forever → ❌ program freeze
+			❌ 3. No proper control
+			No guarantee when the thread will resume safely
+			
+
+
+					   
+		   
+		   
  
 		
 		
