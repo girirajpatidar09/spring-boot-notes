@@ -303,6 +303,153 @@ a lots of code like  servlet name, class and URL  lots of thing we have to  reme
 
 Note :  If you are implementing Spring MVC and Spring REST with Spring boot then no need to worry about Dispatcher Servlet(Front Contoller) 
         spring boot will take care  of that.
+		
+		
+
+##Spring Framework vs Spring boot
+Spring Framework is the core framework that provides powerful features like IoC, DI, and AOP, but it requires a lot of manual configuration.
+Spring Boot is built on top of the Spring Framework. It simplifies the development process using auto-configuration, starter dependencies, and an 
+embedded server, which allows you to build and deploy applications quickly with less boilerplate code.”
+
+		Spring :
+		✅ Key Features:
+		•	Provides core features like IoC, DI, AOP, transaction management.
+		•	Uses XML or Java-based configuration.
+		•	Requires manual setup (Tomcat, WAR deployment, DispatcherServlet, etc.).
+		•	More control over configuration and components.
+		•	Not opinionated → You decide the structure and dependencies.
+		🧰 Example:
+		•	You create applicationContext.xml or @Configuration classes manually.
+		•	Configure DispatcherServlet manually in web.xml.
+		•	Add required dependencies one by one.
+
+
+		Spring Boot :
+		✅ Key Features:
+		•	Auto Configuration – Reduces boilerplate code.
+		•	Starter Dependencies – No need to add each dependency manually.
+		•	Embedded Server (like Tomcat/Jetty) → No need for external server setup.
+		•	Production-ready (Actuator, metrics, health checks).
+		•	Opinionated defaults → ready-to-use project structure.
+		🧰 Example:
+		•	You just create a @SpringBootApplication class and run it.
+		•	No web.xml or manual XML configuration.
+		•	Built-in Tomcat starts automatically
+
+
+## Setting up Spring project :
+
+			Go to spring initializer i.e. start.spring.io
+			Project Metadata (Spring Boot)
+			•	Group
+			👉 Your company or organization name (used as base package)
+			Example: com.example
+			
+			•	Artifact
+			👉 The project name / jar name
+			Example: demo → creates demo.jar
+			
+			•	Name
+			👉 Display name of the project
+			Usually same as artifact
+			
+			•	Description
+			👉 Short explanation of what your project does
+			
+			•	Package Name
+			👉 Java package where your code starts
+			Example: com.example.demo
+
+			Packaging
+			•	Jar ✅
+			👉 Standalone application (most common in Spring Boot)
+			•	War
+			👉 Used when deploying to external servers (Tomcat)
+			
+			
+ 
+##    What are standalone Applications ?
+A standalone application is an application that contains everything it needs to run and can be started directly.
+
+			Standalone application in Java (Spring Boot) ☕
+			In Spring Boot:
+			•	You run the app using:
+			•	java -jar demo.jar
+			•	No need to install Tomcat separately
+			•	The server is embedded inside the app
+			👉 That’s why Spring Boot apps are called standalone
+			
+			
+## What are  jar files ?
+				JAR stands for Java ARchive.
+				👉 A JAR file is a single file that contains:
+				•	Java .class files
+				•	Libraries
+				•	Configuration files
+				•	Resources (images, properties, etc.)
+				All packed together like a ZIP file.
+				A JAR file is used to package Java applications so they can be run easily as one file.
+				
+
+## JAR in Spring Boot 🚀
+				Spring Boot creates a fat JAR (executable JAR):
+				It contains:
+				•	Your application code
+				•	Embedded Tomcat
+				•	All dependencies
+				Run it like:
+				java -jar demo.jar
+				👉 No need to install Tomcat separately
+				👉 This is called a standalone application
+				
+
+##  What  are  war files ?
+    A WAR file is used to package and deploy Java web applications on an external web server.
+	
+      ->What does a WAR file contain?
+			A WAR file includes:
+			•	Servlets
+			•	JSP files
+			•	HTML / CSS / JS
+			•	WEB-INF folder
+			o	web.xml
+			o	classes
+			o	lib (JAR dependencies)
+			📦 Everything needed for a web app, but NOT the server.
+			
+	 
+	 -> Example 🧩
+		Project structure (before WAR)
+		myapp/
+		 ├── src/
+		 ├── WEB-INF/
+		 │    ├── web.xml
+		 │    └── lib/
+		 └── index.jsp
+		After building:
+		myapp.war
+		
+		
+     ->How to use WAR 🚀
+		1.	Install Tomcat
+		2.	Copy myapp.war into:
+		3.	tomcat/webapps/
+		4.	Start Tomcat
+		5.	Open browser:
+		6.	http://localhost:8080/myapp
+		✅ App runs inside Tomcat
+
+		Note : JAR is used for standalone applications, while WAR is used for web applications deployed on external servers.
+
+		
+
+
+
+
+
+
+
+
 
 
 
