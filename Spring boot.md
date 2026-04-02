@@ -944,6 +944,8 @@ and automatically register them as beans.
 	@Bean:
 “@Bean creates and registers a Spring-managed object from a method inside a @Configuration class.”
 
+<img width="602" height="332" alt="b2" src="https://github.com/user-attachments/assets/b0a10b8c-aae0-4c05-83d3-baa629e0e8cc" />
+
 
 
 
