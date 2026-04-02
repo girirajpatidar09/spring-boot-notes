@@ -768,6 +768,9 @@ _
 	   
 	   How to used PropertyEditor ?
 
+	   <img width="602" height="466" alt="a2" src="https://github.com/user-attachments/assets/e90f5f87-dd04-4d42-a4d8-03f34a70792a" />
+
+
 	  
 	   
 
