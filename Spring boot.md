@@ -938,10 +938,10 @@ and automatically register them as beans.
 
 #  Bean and its Lifecycle :
 
-	@Configuration 
-“@Configuration tells Spring this class contains bean definitions that should be managed by the IoC container.”
+	@Configuration :
+ “@Configuration tells Spring this class contains bean definitions that should be managed by the IoC container.”
 
-	@Bean
+	@Bean:
 “@Bean creates and registers a Spring-managed object from a method inside a @Configuration class.”
 
 
