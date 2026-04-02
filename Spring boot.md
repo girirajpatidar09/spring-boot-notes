@@ -932,7 +932,21 @@ and automatically register them as beans.
 
 -> @Repositoy is alias of @Component but additional is that it converts checked persistence exceptions into unchecked DataAccessException.
 
--> @Service has no extra feature as alias of @Component  is is just for the readability purpos
+-> @Service has no extra feature as alias of @Component  is is just for the readability purpose
+
+
+
+#  Bean and its Lifecycle :
+
+	@Configuration 
+“@Configuration tells Spring this class contains bean definitions that should be managed by the IoC container.”
+
+	@Bean
+“@Bean creates and registers a Spring-managed object from a method inside a @Configuration class.”
+
+
+
+
 
 
 	   
