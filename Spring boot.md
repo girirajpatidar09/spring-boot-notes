@@ -1,0 +1,322 @@
+# Spring Boot :
+
+## Singleton Design , Singleton Pattern  and Singleton class :
+Singleton  pattern is a pattern in which we restrict a class to have  only  one object (instance) throughout the application  for this we 
+have to provide the private constructor and factory  method .
+
+->We use Singleton  pattern for better performance according to given condition , like in case of database connection.<br>
+->In singleton pattern we have two types  of initialization Eager and Lazy.
+  
+### Lazy initialization 
+    
+     class Singleton
+	{
+	  static Singleton single;
+	  
+	  private Singleton()
+	  {
+	    
+	  }
+	  public static  Singleton getObject()
+	  {
+	    if(single==null)
+		{
+		 single = new Singleton();
+		}
+		return single;
+	  }
+	  
+	}
+	class demo
+	{
+	 public static void main(String ar[])
+	 {
+	   Singleton  single1= Singleton.getObject();
+	   Singleton  single2= Singleton.getObject();
+	   System.out.println(single1.hashCode());
+	   System.out.println(single2.hashCode());
+	   System.out.println(single1==single2);
+	   
+	 }
+	}
+	Output : 918221580
+             918221580
+             true
+			 
+			 
+### Eager initialization
+   
+     class Singleton
+	{
+	  static Singleton single= new Singleton();
+	  
+	  private Singleton()
+	  {
+	    
+	  }
+	  public static  Singleton getObject()
+	  {
+	    
+		return single;
+	  }
+	  
+	}
+	class demo
+	{
+	 public static void main(String ar[])
+	 {
+	   Singleton  single1= Singleton.getObject();
+	   Singleton  single2= Singleton.getObject();
+	   System.out.println(single1.hashCode());
+	   System.out.println(single2.hashCode());
+	   System.out.println(single1==single2);
+	   
+	 }
+	}
+	Output :: 918221580
+			  918221580
+			  true
+
+
+
+#  Coupling ::
+Coupling refers to how strongly one class or module depends on another. Loosely coupling is preferred because it improves flexibility, 
+maintainability, and reusability.
+
+## Loose coupling :
+   Loose coupling means that classes or modules are minimally dependent on each other and interact through interfaces or abstractions,
+   not through direct implementations.
+   
+## Tight coupling:
+Tight coupling means that one class is strongly dependent on another class’s implementation, so changes in one class directly affect the
+ other.
+ 
+ 
+### Let's understand  Tight coupling with an example :
+
+      Suppose your senior gives you a task to read data from datbase,se making a dummy example not actual database connectivity.
+	  
+            
+		class DbReader
+		{
+		   public void show()
+		   {
+		   System.out.println("Database data..");
+		   }
+		   
+		}
+		
+		class Reader
+		{
+		  DbReader db ;
+		  public Reader(DbReader db)
+		  {
+		    this.db=db;
+		  }
+		  public void readData()
+		  {
+		  db.show();
+		  }
+		}
+		
+		class TightCoupling
+		{
+		  public static void main(String ar[])
+		  {
+		     Reader rd = new Reader(new DbReader());
+			 rd.readData();
+		  }
+		}
+		
+		Output : Database data...
+		
+		Here in above example Reader class is directly dependent on DbReader.Now suppose your senior tell that you have to read data from 
+		Excel then lots of change  we have to perform in code.
+		
+		         class DbReader
+		{
+		   public void show()
+		   {
+		   System.out.println("Database data..");
+		   }
+		   
+		}
+		
+		class ExReader
+		{
+			public void show()
+			{
+				System.out.println("Excel data...");
+			}
+		}
+		
+		class Reader
+		{
+		  ExReader ex ;
+		  public Reader(ExReader ex)
+		  {
+		    this.ex=ex;
+		  }
+		  public void readData()
+		  {
+		  ex.show();
+		  }
+		}
+		
+		class TightCoupling
+		{
+		  public static void main(String ar[])
+		  {
+		     Reader rd = new Reader(new ExReader());
+			 rd.readData();
+		  }
+		}
+		
+		Output : Excel data...
+		
+	  
+	  Here , in above example we see lots of problem because the classes are dependent on direct implementation.
+	  So the solution is loose  coupling.
+	  
+
+### Let's see  the solution for above problem with the help of loose coupling :
+
+         interface Reading 
+		{
+			void show();
+		}
+		class DbReader implements Reading
+		{
+		   public void show()
+		   {
+		   System.out.println("Database data..");
+		   }
+		   
+		}
+		
+		class ExReader implements Reading 
+		{
+			public void show()
+			{
+				System.out.println("Excel data...");
+			}
+		}
+		
+		class Reader 
+		{
+			Reading  rd ;
+			public Reader(Reading  rd)
+			{
+				this.rd=rd;
+				
+			}
+			
+			public void readData()
+			{
+				rd.show();
+			}
+		}
+		
+		
+		
+		
+		class LooseCoupling
+		{
+		  public static void main(String ar[])
+		  {
+		     Reader rd1 =  new Reader(new DbReader());
+			 rd1.readData();
+			 
+			 Reader  rd2 = new Reader( new ExReader());
+			 rd2.readData();
+		  }
+		}
+		
+		Output : Database data..
+                 Excel data...
+				
+
+# Why  Spring Boot exists and how it is differ from Spring Framework  ?
+
+## What is Servlet ?
+ 
+   A Servlet in Java is a server-side component used to handle HTTP requests and generate responses, most commonly for web applications.
+   A Servlet is a Java class that runs on a web server and handles web requests using HTTP.
+
+## 	What is Servlet Container (Manages Servlet)? 
+
+A Servlet Container is a part of a web/application server that loads servlets, handles HTTP requests, and manages their lifecycle. Basically Servlet Container manages the servlets.
+You write the Servlet.The container does everything else.
+
+## **NOTE**
+
+Apache is an server and inside Apache there is tomcat which is container that is responsible to handle servlet.
+
+
+
+<img width="826" height="287" alt="servlet-container" src="https://github.com/user-attachments/assets/ad5ed1ab-3ef8-43c6-9a57-23e9892e56ad" />
+
+## Headache in Servlets 
+
+<img width="873" height="841" alt="Screenshot 2026-04-01 202902" src="https://github.com/user-attachments/assets/5de96e70-8f37-4da6-8892-48676c6bb692" />
+
+ 
+If we are using Servlet then to map it in Servlet container  we have to provide information in web.xml that is used by Servlet container  it create
+a lots of code like  servlet name, class and URL  lots of thing we have to  remember .
+
+  localhost:8080/ProjectName folder name/endpoints
+  
+## Key point : 
+ 
+  -> What is @WebServlet?<br>
+   @WebServlet is a Java annotation used to declare and configure a Servlet directly in code, without using web.xml.
+   
+    It tells the Servlet Container :
+    “This class is a Servlet, and this is the URL that should trigger it.”
+	
+## 	To solve the issue of Servlet,  Spring MVC comes into the picture  which is the part of Spring Framework .
+
+<img width="872" height="615" alt="a1" src="https://github.com/user-attachments/assets/f81cf922-5e34-42a3-987c-d2825b72e72f" />
+
+<img width="869" height="804" alt="a2" src="https://github.com/user-attachments/assets/fd3427da-3666-4e9e-89f7-8ec6bd9f09cd" />
+
+<img width="744" height="765" alt="a3" src="https://github.com/user-attachments/assets/c820474b-4d87-4013-8518-7bf7e34aeb97" />
+
+<img width="873" height="338" alt="a4" src="https://github.com/user-attachments/assets/db88718a-1675-4979-94cc-7008d6f39664" />
+
+<img width="884" height="869" alt="a5" src="https://github.com/user-attachments/assets/0e109b45-7ff7-4fc6-b61d-3c89877f85ab" />
+
+<img width="1379" height="775" alt="a6" src="https://github.com/user-attachments/assets/844022e3-f2f6-442d-b5c7-8e8810a95f9c" />
+
+
+## Spring Boot Solves problems of Spring Framework
+
+<img width="934" height="721" alt="p1" src="https://github.com/user-attachments/assets/ef8872f9-a4e8-48b1-8535-7c3553ecbcc1" />
+
+<img width="851" height="372" alt="p2" src="https://github.com/user-attachments/assets/0bcf5844-cfa5-47fe-a524-0dc5bdca56fd" />
+
+<img width="815" height="572" alt="p3" src="https://github.com/user-attachments/assets/cd91355c-0f33-4cd0-a41b-d062824501b1" />
+
+<img width="854" height="718" alt="p4" src="https://github.com/user-attachments/assets/73044edb-be00-45b6-a68b-57a08a95b95e" />
+
+<img width="1379" height="777" alt="p5" src="https://github.com/user-attachments/assets/298a3fb9-530f-431f-89b2-b792d97c0c15" />
+
+Note :  If you are implementing Spring MVC and Spring REST with Spring boot then no need to worry about Dispatcher Servlet(Front Contoller) 
+        spring boot will take care  of that.
+
+
+
+
+
+
+
+   
+
+  
+  
+
+
+
+
+
+
