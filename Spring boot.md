@@ -444,10 +444,10 @@ A standalone application is an application that contains everything it needs to 
 	
 
 ##  Quick Comparison
-File Type	         Application Type	       Server Needed
-JAR	            Standalone / Microservices	    ❌ No
-WAR              Web / Enterprise apps	        ✅ Yes 
-		
+| File Type | Application Type             | Server Needed |
+|---------- |------------------------------|---------------|
+| JAR       | Standalone / Microservices   | ❌ No         |
+| WAR       | Web / Enterprise apps        | ✅ Yes        |
 
 
 NOTE -> 
