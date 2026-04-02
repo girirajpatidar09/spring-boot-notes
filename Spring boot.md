@@ -1037,6 +1037,9 @@ and automatically register them as beans.
 			}
 		}
 
+		<img width="957" height="597" alt="b5" src="https://github.com/user-attachments/assets/6b441723-ac06-4166-bb4d-e909a9a933d4" />
+
+
 
 
 	
