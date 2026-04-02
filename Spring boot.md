@@ -440,6 +440,20 @@ A standalone application is an application that contains everything it needs to 
 		✅ App runs inside Tomcat
 
 		Note : JAR is used for standalone applications, while WAR is used for web applications deployed on external servers.
+	
+	
+
+##  Quick Comparison
+File Type	         Application Type	       Server Needed
+JAR	            Standalone / Microservices	    ❌ No
+WAR              Web / Enterprise apps	        ✅ Yes 
+		
+
+
+NOTE -> 
+In modern Spring Boot applications, we often use JAR files with embedded servers, making deployment simpler. WAR is still used when deploying to 
+external enterprise servers.”
+
 
 		
 
