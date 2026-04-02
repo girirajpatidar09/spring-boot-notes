@@ -1089,27 +1089,32 @@ and automatically register them as beans.
 				}
 				}
 
+                -------------------------------------------------------------------------------------------------------------
+				
+			Configuration
+				public class Config {
 
-	<img width="602" height="445" alt="b3" src="https://github.com/user-attachments/assets/028f95ef-b3aa-47eb-b363-03fd1a16526a" />
-
-	<img width="602" height="522" alt="b4" src="https://github.com/user-attachments/assets/02a7afc6-f74f-4492-9951-d5304ab81e57" />
-
-	<img width="602" height="329" alt="b5" src="https://github.com/user-attachments/assets/e898509b-5582-412e-8074-d38e25112e7a" />
-
-
-
-	
-
-	
-	
-
-
-		 
-
-	
-	
-
-								
+					@Bean
+					User createUserBean()
+					{
+						
+						 String name = "ram";
+						 return new User(101,name);
+						
+					}
+					
+					
+					@Bean
+					
+					User createAnotherUserBean()
+					{
+						
+						 String name = "sita";
+						 return new User(102,name);
+						
+					}
+					
+		   Here two objects are created 
 					
 
 		   
