@@ -634,6 +634,34 @@ _
 			@Controller → tells Spring this is a web controller
 			@ResponseBody → tells Spring:
 			👉 “Don’t return a view (HTML/JSP), return data directly”
+			
+
+##  @RestController 
+ 
+             
+			Example :
+			
+			@RestController
+			public class MyController {
+
+				@GetMapping("/hello")
+				public String sayHello() {
+					return "Hello Giriraj!";
+				}
+			}
+			
+			
+			🔍 What happens here?
+			@RestController 👉 Combines:
+			@Controller
+			@ResponseBody
+
+			👉 So no need to write @ResponseBody separately
+
+			@GetMapping("/hello") 👉 Creates API endpoint
+			
+
+
 
 
 
