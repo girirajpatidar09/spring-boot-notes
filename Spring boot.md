@@ -891,10 +891,50 @@ _
 
 
 		
-		
-			
-			
-	   
+## What is Inversion of control   ?
+“IoC (Inversion of Control) is a design principle where the responsibility of object creation and dependency management is shifted from the
+ developer to a framework or container
+In Spring, this container is called the IoC Container, which creates, configures, and manages beans.
+The main IoC containers in Spring are BeanFactory and ApplicationContext, wApplicationContext being the most commonly used.”
+
+## What is Dependency Injection ?
+ Dependency Injection (DI) is a design pattern in which an object’s dependencies (Beans )are provided (injected) by an external source such as an 
+ IoC container 
+Constructor based  and setter based dependency Injection or field based.
+
+## Tips……………….
+•	Spring IoC Container can be configured either via XML or Java annotations/configuration.
+•	DI works the same in both; only configuration style differs.
+•	Java configuration is preferred in Spring Boot.
+•	Example: @Bean methods or @Component with @Autowired.
+•	<spring.version>6.1.10</spring.version>(used in property tags )
+Wherever required in pom.xml use <version>${spring.version}</version>
+
+
+
+##   What is Auto Scanning ?
+Auto scanning (or component scanning) is a feature in Spring where the Spring container automatically detects classes annotated with stereotypes like @Component, @Service, @Repository, or @Controller and registers them as beans in the IoC container.
+ Goal: Avoid manually declaring every bean in XML or Java configuration.
+
+
+## @ComponentScan
+@ComponentScan is a Spring annotation that tells the IoC container to scan specific packages for classes annotated with stereotypes like:
+@Component, @Service, @Repository, or @Controller
+and automatically register them as beans.
+
+@Component is a basic and general sterotype annotation.
+@Repository – Used for tagging Repository classes(classes which contain logic to interact with database).
+@Service- Used for tagging  Service classes(which contain business logic).
+@Controller – Used for tagging Controller classes(classes which contains API’s)
+
+
+-> @RestController and @Controller are aliases  of @Component   but their additional feature is they handle HTTP requests.
+
+-> @Repositoy is alias of @Component but additional is that it converts checked persistence exceptions into unchecked DataAccessException.
+
+-> @Service has no extra feature as alias of @Component  is is just for the readability purpos
+
+
 	   
 
 	
