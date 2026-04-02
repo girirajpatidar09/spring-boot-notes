@@ -1036,6 +1036,11 @@ and automatically register them as beans.
 				this.name = name;
 			}
 		}
+
+
+
+	<img width="602" height="359" alt="b4" src="https://github.com/user-attachments/assets/ca7bc57c-4790-48d1-a85f-1c1952ff054b" />
+
 								
 					
 
