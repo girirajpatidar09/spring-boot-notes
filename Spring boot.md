@@ -756,6 +756,21 @@ _
        }
 	   
 	   
+	   The framework automatically performs type conversion from the request parameter’s string representation to the specific type.
+
+			1 Primitive types : such as int ,long , float,  double etc .
+			2 Wrapper classes : Such as Integer , Long , float ,Double, Boolean etc .
+			3 String : Request parameters are inherently treated as string only.
+			4 Enums : you can bind request parameters to enum types.
+			5 Custom Object types : We can do it using a registered PropertyEditor.
+			
+			
+	   
+	   How to used PropertyEditor ?
+	   
+
+	   
+	   
 ## 
 		
 	   
