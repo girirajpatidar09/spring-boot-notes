@@ -1117,6 +1117,35 @@ and automatically register them as beans.
 		   Here two objects are created 
 		   
 		   ---------------------------------------------------------------------------------------------------------------------
+		   
+
+## 🕒 At what time these beans get created
+
+### Eagerness
+
+-> Some Beans get created, When we start up an application.
+
+-> For ex: Beans with Singleton Scope are Eagerly initialized.
+
+
+### Lazy
+
+-> Some Beans get created Lazily, means when they actually needed.
+
+-> For ex: Beans with Scope like Prototype etc. are Lazily initialized.
+   Or
+   Beans with @Lazy annotation.
+   
+        Example :
+		
+		@Lazy
+		@Component
+		public class Order {
+
+			public Order() {
+				System.out.println("initializing Order");
+			}
+		}
 
 
 		  
