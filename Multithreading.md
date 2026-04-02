@@ -184,6 +184,7 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 
 6        join() method :
 
+            Syntac :
            a. public final void join()  throws InterruptedException
 		   b. public final void join(long millisec)  throws InterruptedException
 		   c. public final void join(long millisec, int nanosec)  throws InterruptedException
@@ -195,7 +196,21 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 		   be entered into the waiting state untill t2 completes.Once t2 completes then t1 can continue its execution.
 		   
 		   
-					   
+
+7.      yield() method :
+
+          Syntax 
+		  public static void yield()
+		  
+		  yield() method causes to pause current executing thread to give the chance for waiting threads of same priority.If there is no waiting
+		  thread or all waiting threaad have low proirity then same thread can continue its execution.If multiple threads are waiting wiht same 
+		  priority then which thread will get chance  we can't expect it depends on thread scheduler.The thread which is yielded, when 
+		  it will get chance once agin it depends on thread scheduler and we can't expect exatly.
+		  
+		  NOTE :  Some platforms won't proper support for yield method .
+		  
+		  
+				   
 		   
 		   
  
