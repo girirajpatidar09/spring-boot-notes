@@ -1015,7 +1015,28 @@ and automatically register them as beans.
                   String name → not a Spring-managed bean ❌
 
                Spring cannot find values to inject for these parameters from the Application Context, so it fails to instantiate the bean entirely.
-						
+
+
+        -> How to fix this above problem :
+   
+      
+		✔️ Option 1: Add Default Constructor (Easiest)
+		public User() {
+		}
+		
+		✔️ Option 2: Use @Value (for fixed values)
+		@Component
+		public class User {
+
+			int id;
+			String name;
+
+			public User(@Value("1") int id, @Value("Giriraj") String name) {
+				this.id = id;
+				this.name = name;
+			}
+		}
+								
 					
 
 		   
