@@ -565,6 +565,79 @@ reliable and scalable in teams.
  Custom annotation is a user-defined metadata used to add application-specific information to classes or methods. We create it using @interface 
  along with @Retention and @Target. It doesn’t change logic directly but is processed using reflection or frameworks like Spring. Custom annotations
  help reduce boilerplate, improve readability, and implement features like validation, logging, and security.
+ 
+
+##  @ SpringBootApplication 
+
+		@SpringBootApplication is a convenience annotation that combines three important Spring annotations:
+		@SpringBootApplication= @SpringBootConfiguration advanced version of @Configuration
+		+ @EnableAutoConfiguration
+		+ @ComponentScan
+		So basically, instead of writing these three annotations separately, you can just use one 
+_
+			🧠 What each part does:
+			1.	@Configuration 🧱
+				Tells Spring that this class contains bean definitions.
+				Works like applicationContext.xml in traditional Spring.
+			
+			2.	@EnableAutoConfiguration ⚡
+				Tells Spring Boot to automatically configure beans based on the dependencies in the classpath.
+				Example: If spring-boot-starter-web is present → Spring Boot auto-configures Tomcat, DispatcherServlet, etc.
+			
+			3.	@ComponentScan 🔍
+				Tells Spring to scan the current package and its subpackages for components (@Component, @Service, @Controller, etc.) and make them 
+			   beans automatically.
+			   
+
+##  @Controller :
+			@Controller is a Spring MVC annotation used to mark a class as a web controller — a component that:
+			•	receives HTTP requests
+			•	processes them
+			•	returns a view name (HTML/JSP/Thymeleaf) or a Model
+			
+			
+			
+			Example :
+			
+					@Controller
+		            public class HomeController 
+					{
+                      @GetMapping("/home")
+					  
+			          public String home(Model model) 
+					  {
+					  model.addAttribute("message", "Hello Spring!");
+				       return "home"; // resolves to home.html / home.jsp
+		               }
+					}
+					
+			
+		 
+		 Note :  To send data directly here we have to use ResponseBody with Controller 
+		 
+		     
+			  Example :
+			  
+			   @Controller
+               public class MyController 
+			   {
+
+				@RequestMapping("/hello")
+				@ResponseBody
+                public String hello() {
+                return "Hello Giriraj!";
+                  }
+               }
+			   
+		
+		 🔍 How it works
+			@Controller → tells Spring this is a web controller
+			@ResponseBody → tells Spring:
+			👉 “Don’t return a view (HTML/JSP), return data directly”
+
+
+
+
 
 			
 			
