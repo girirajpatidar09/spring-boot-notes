@@ -1119,9 +1119,7 @@ and automatically register them as beans.
 		   ---------------------------------------------------------------------------------------------------------------------
 
 
-		   <img width="602" height="329" alt="b6" src="https://github.com/user-attachments/assets/9be74257-cad4-4167-b248-5757e4ea502f" />
-
-		   
+		  
 		 
 		   
 					
