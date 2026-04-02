@@ -207,7 +207,7 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 		  priority then which thread will get chance  we can't expect it depends on thread scheduler.The thread which is yielded, when 
 		  it will get chance once agin it depends on thread scheduler and we can't expect exatly.
 		  
-		  NOTE :  Some platforms won't proper support for yield method .
+		  NOTE :  Some platforms won't  provide proper support for yield method .
 		  
 		  
 				   
