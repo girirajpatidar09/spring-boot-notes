@@ -829,6 +829,61 @@ _
 
 				// getters and setters
                }
+			   
+			   
+
+## ResponseBody 
+
+			ResponseEntity in Spring Boot
+
+			ResponseEntity is used to control the full HTTP response:
+			✔ Status code
+			✔ Response body
+			✔ Headers
+			
+			
+			✅ 📌 Basic Example
+			@RestController
+			@RequestMapping("/users")
+			public class UserController 
+			{
+
+				@GetMapping("/{id}")
+				public ResponseEntity<String> getUser(@PathVariable int id)
+				{
+					return ResponseEntity.ok("User ID: " + id);
+				}
+			}
+			
+			
+			
+			✅ 📌 Custom Status Example
+			@GetMapping("/{id}")
+			public ResponseEntity<String> getUser(@PathVariable int id) {
+
+				if (id <= 0) {
+					return ResponseEntity.badRequest().body("Invalid ID");
+				}
+
+				return ResponseEntity.ok("User ID: " + id);
+			}
+			
+			
+			✅ 📌 Returning Object
+			@PostMapping
+			public ResponseEntity<User> createUser(@RequestBody User user) {
+				return ResponseEntity.status(201).body(user);
+			}
+			
+			
+			✅ 📌 With Headers
+			@PostMapping
+			public ResponseEntity<String> createUser() {
+				return ResponseEntity
+						.status(201)
+						.header("Custom-Header", "Value")
+						.body("User Created");
+			}
 
 
 		 
