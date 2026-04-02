@@ -232,6 +232,10 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 
 5. public final void setName(String name)
 
+6. public boolean isAlive() :
+
+    Used in context for thread is alive or not 
+
 ### What happens when we use thread priorities less than 1 and greater then 10
 
     IllegalArgumentException
@@ -240,9 +244,12 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 ## Default Priority :
 
 The default priority only for the main thread is five but for all remaining threads default priority will be inherited from parent to child
-i.e. whatever priority parent thread has the same prioirty will be there fro child thread.
+i.e. whatever priority parent thread has the same prioirty will be there for child thread.
 
 Note :  Some platform won't provide proper support for thread safety
+
+
+
 
 
 
