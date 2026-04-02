@@ -764,6 +764,11 @@ _
 			4 Enums : you can bind request parameters to enum types.
 			5 Custom Object types : We can do it using a registered PropertyEditor.
 			
+		
+		How to used PropertyEditor ?
+		
+		
+			
 			
 	   
 	   
