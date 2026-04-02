@@ -455,6 +455,11 @@ In modern Spring Boot applications, we often use JAR files with embedded servers
 external enterprise servers.”
 
 
+# Layered Architecture
+
+
+
+
 		
 
 
