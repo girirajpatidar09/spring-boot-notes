@@ -114,6 +114,34 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
    b. public static native void sleep(long miilisec , int nanosec)  throws InterruptedException
    
     If a thread don't want to perform any operation for a particular amount of time then we should go for sleep() method.
+	
+3. stop() method  - It is depcreated
+
+          Synatx: 
+          public final void stop()
+		 
+		 In java , the stop() method belongs to the Thread class and was originally used to forcefully terminate a thread
+		 
+		 ⚠️ Why is stop() deprecated
+		 stop() is considered unsafe and was deprecated because:
+
+			1. ❌ Unsafe termination
+			It kills the thread instantly.
+			The thread may be in the middle of critical work.
+			
+			2. ❌ Leaves objects in inconsistent state
+			If a thread is modifying shared data and gets stopped:
+			Data may become corrupted.
+			Leads to unpredictable behavior.
+			
+			3. ❌ Releases locks abruptly
+			If the thread holds locks, they are released suddenly.
+			Other threads may access half-updated data.
+			
+
+4.    suspend method() -It is deprecated 
+       
+     
 		  
  
 		
