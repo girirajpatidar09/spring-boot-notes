@@ -187,6 +187,14 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
            a. public final void join()  throws InterruptedException
 		   b. public final void join(long millisec)  throws InterruptedException
 		   c. public final void join(long millisec, int nanosec)  throws InterruptedException
+		   
+		   
+		   If a thread want to wait untill completing some other thread , then we should go for join() method.
+		   
+		   If a thread t1 wants to wait untill completing t2 then t1 has to call t2.join().If t1 executes t2.join() then immediately t1 will
+		   be entered into the waiting state untill t2 completes.Once t2 completes then t1 can continue its execution.
+		   
+		   
 					   
 		   
 		   
