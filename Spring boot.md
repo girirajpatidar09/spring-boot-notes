@@ -791,6 +791,38 @@ _
 		 
 		 http://localhost:8080/users/101
 		 
+		 
+##  @RequestBody
+
+@RequestBody is used to read data from the HTTP request body (usually JSON) and convert it into a Java object.
+
+			✅ 📌 Simple Explanation
+
+			When client sends data inside request body (POST/PUT), we use @RequestBody.
+
+			👉 Example request (JSON):
+
+			{
+			  "name": "Giriraj",
+			  "age": 22
+			}
+			
+			
+			 
+			@RestController
+            @RequestMapping("/users")
+            public class UserController 
+			{
+
+              @PostMapping
+             public String createUser(@RequestBody User user)
+			 {
+              return "User created: " + user.getName();
+              }
+               }
+
+
+		 
 
 
 
