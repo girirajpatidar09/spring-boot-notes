@@ -216,12 +216,36 @@ aim of process scheduling  system is to keep the CPU busy all time and to delive
 
 ## Methods :
 
-1 .   public static Thread conrrentThread() :  
+1 .   public static Thread currentThread() :  
          
 		 It returns a reference to the currently executing thread.
 		 
 		 -> What happend when we print currenThread Object 
 		   Thread[Name of Thread , Priority of Thread, Group of Thread]
+
+
+2.  public final int getpriority()
+
+3. public final void setPriority(int p)
+
+4. public final String getName()
+
+5. public final void setName(String name)
+
+### What happens when we use thread priorities less than 1 and greater then 10
+
+    IllegalArgumentException
+
+
+## Default Priority :
+
+The default priority only for the main thread is five but for all remaining threads default priority will be inherited from parent to child
+i.e. whatever priority parent thread has the same prioirty will be there fro child thread.
+
+Note :  Some platform won't provide proper support for thread safety
+
+
+
 		 
  
 
