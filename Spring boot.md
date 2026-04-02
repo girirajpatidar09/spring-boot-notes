@@ -820,6 +820,15 @@ _
               return "User created: " + user.getName();
               }
                }
+			   
+			   
+			   
+			   public class User {
+				private String name;
+				private int age;
+
+				// getters and setters
+               }
 
 
 		 
