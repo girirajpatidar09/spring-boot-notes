@@ -530,6 +530,46 @@ reliable and scalable in teams.
 		•	environment profiles
 		No guessing. No hidden configs.
 		
+
+# Annotations in Spring Boot 
+
+## What is Annotation ?
+
+			In Java, an annotation is a special type of metadata (data about data) that provides additional information about code.
+			                              OR
+			Annotations in Java are metadata that provide information about code to the compiler or runtime without changing its logic.
+
+			👉 It does not directly affect program execution, but it helps:
+
+			Compiler (for checking errors)
+			Tools (like frameworks)
+			Developers (for understanding code)
+			
+			Examples of built-in annotations:
+			•	@Override
+			•	@Deprecated
+			•	@SuppressWarnings
+			
+			
+
+## Why Do We Need Custom Annotations?
+
+		Custom annotations are used when built-in annotations are not enough and we want to:
+		1.  Add application-specific metadata
+		2.  Reduce boilerplate code
+		3.  Improve readability
+		4.  Support frameworks (validation, logging, security, mapping, etc.)
+		5.  Implement cross-cutting concerns using AOP or reflection
+
+## How to generate custome annotationa ?
+ Custom annotation is a user-defined metadata used to add application-specific information to classes or methods. We create it using @interface 
+ along with @Retention and @Target. It doesn’t change logic directly but is processed using reflection or frameworks like Spring. Custom annotations
+ help reduce boilerplate, improve readability, and implement features like validation, logging, and security.
+
+			
+			
+			
+
 				
 
 
