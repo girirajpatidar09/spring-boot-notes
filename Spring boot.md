@@ -457,6 +457,9 @@ external enterprise servers.”
 
 # Layered Architecture
 
+<img width="602" height="308" alt="a1" src="https://github.com/user-attachments/assets/c2ad36fe-8538-4f07-b42b-a0faf55f195e" />
+
+
 
 
 
