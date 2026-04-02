@@ -1038,6 +1038,63 @@ and automatically register them as beans.
 		}
 
 		
+		
+		 @Bean can also solve that problem of application started failde, because  spring boot does not know what to these
+		 constructor
+		 
+		 So @Bean comes in the picture ,where we provide the configuratin details and tells Spring boot to use
+		 it while creating a Bean .
+		 
+		 
+		 @Configuration
+         public class Config {
+
+			@Bean
+			User createUserBean()
+			{
+				
+				 String name = "ram";
+				 return new User(101,name);
+				
+	         }
+			 }
+			 
+			 
+			 
+			 
+			
+			public  class User {
+	
+				int id;
+				String name;
+				
+				
+				public User(int id,String name)
+				{
+					this.id = id;
+					this.name = name;
+					System.out.println("Giriraj Patidar");
+				}
+				public int getId() {
+					return id;
+				}
+				public void setId(int id) {
+					this.id = id;
+				}
+				public String getName() {
+					return name;
+				}
+				public void setName(String name) {
+					this.name = name;
+				}
+				}
+	
+
+	
+	
+
+
+		 
 
 	
 	
