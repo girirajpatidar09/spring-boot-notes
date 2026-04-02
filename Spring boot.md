@@ -949,6 +949,82 @@ and automatically register them as beans.
 <img width="602" height="481" alt="b3" src="https://github.com/user-attachments/assets/8d858ed6-151a-48e1-8e2f-731434bd8083" />
 
 
+      
+			@Component
+			public class User {
+				
+				String name;
+				int id;
+				public String getName() {
+					return name;
+				}
+				public void setName(String name) {
+					this.name = name;
+				}
+				public int getId() {
+					return id;
+				}
+				public void setId(int id) {
+					this.id = id;
+				}
+				
+				}
+				
+		   -> This above example works fine .
+		   
+		   When Spring tries to create a bean using @Component, it needs to instantiate the class using reflection — and by default, it looks for 
+		   a no-argument constructor.
+		   
+		   
+		   
+		  
+
+
+					@Component
+					public  class User {
+						
+						int id;
+						String name;
+						public User(int id, String name) {
+							super();
+							this.id = id;
+							this.name = name;
+						}
+						public int getId() {
+							return id;
+						}
+						public void setId(int id) {
+							this.id = id;
+						}
+						public String getName() {
+							return name;
+						}
+						public void setName(String name) {
+							this.name = name;
+						}
+						}
+						
+						***************************
+                        APPLICATION FAILED TO START
+						***************************
+						
+					If a class has exactly ONE constructor, Spring will automatically use it for injection — BUT only if the parameters can be
+					satisfied from the Spring context (i.e., they are Spring beans).
+					
+					int id → primitive, not a Spring bean ❌
+                  String name → not a Spring-managed bean ❌
+
+               Spring cannot find values to inject for these parameters from the Application Context, so it fails to instantiate the bean entirely.
+						
+					
+
+		   
+		   
+		   
+	
+
+
+
 
 
 
