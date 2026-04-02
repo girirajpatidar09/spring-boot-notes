@@ -462,8 +462,75 @@ external enterprise servers.”
 
 
 
+## What is Maven ?
+It is a project Management tool , help developers with :
+•	Build generation.
+•	Dependency resolution.
+•	Documentation etc .
+-Maven uses POM (Project Object Model) to achieve this.
+-When  “maven” command is given , it looks for “pom.xml” in the current directory and get needed configuration.
 
+
+##  Why maven ?
+Maven is used because it automates builds, manages dependencies, enforces project standards, and integrates easily with CI/CD—making Java projects
+reliable and scalable in teams.
+ 
+		✅ 1. Automatic dependency management
+		Instead of downloading JARs manually, you declare them once in pom.xml.
+		Maven:
+		•	downloads libraries for you
+		•	pulls their dependencies (transitive deps)
+		•	handles versions & conflicts
+		👉 Result: consistent builds across every developer and CI server.
 		
+		✅ 2. One command builds everything
+		Run:
+		mvn clean install
+		Maven automatically:
+		•	cleans old output
+		•	compiles code
+		•	runs tests
+		•	packages the app
+		•	installs it locally
+		No custom scripts needed.
+		
+		
+		✅ 3. Standard project structure
+		Every Maven project looks the same:
+		src/main/java
+		src/test/java
+		pom.xml
+		👉 New developers can jump in immediately.
+	
+	
+		✅ 4. Huge plugin ecosystem
+		Maven uses plugins to do real work:
+		•	compile Java
+		•	run unit tests
+		•	generate coverage
+		•	build fat JARs
+		•	integrate with Docker
+		•	publish artifacts
+		You configure once—reuse everywhere.
+		
+		
+		✅ 5. CI/CD friendly (enterprise favorite)
+		Build servers simply run Maven commands.
+		Typical flow:
+		Developer → Git → CI → mvn package → artifact repo → deploy
+		This repeatability is why enterprises love Maven.
+		
+		
+		✅ 6. Single source of truth (pom.xml)
+		Everything lives in one place:
+		•	dependencies
+		•	versions
+		•	plugins
+		•	build rules
+		•	environment profiles
+		No guessing. No hidden configs.
+		
+				
 
 
 
