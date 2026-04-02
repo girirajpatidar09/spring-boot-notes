@@ -659,6 +659,92 @@ _
 			👉 So no need to write @ResponseBody separately
 
 			@GetMapping("/hello") 👉 Creates API endpoint
+		
+
+##  @RequestMapping
+
+    @RequestMapping is used in Spring MVC / Spring Boot to map HTTP requests (URLs + methods) to specific controller methods.
+     When a client hits a certain URL (like /users), @RequestMapping tells Spring which Java method should handle that request.
+	 
+	  -> Basic Example :
+	    
+		@RestController
+       public class MyController 
+	   {
+
+          @RequestMapping("/hello")
+        public String hello() 
+		{
+        return "Hello World!";
+        }
+       }
+	   
+	   
+	  -> Example with HTTP Method
+	  
+	    @RestController
+        public class UserController 
+		{
+
+         @RequestMapping(value = "/user", method = RequestMethod.GET)
+			public String getUser() {
+				return "GET User";
+                }
+
+			@RequestMapping(value = "/user", method = RequestMethod.POST)
+			public String createUser() {
+				return "POST User";
+			}
+        }
+		
+		
+		-> Class-Level + Method-Level Mapping
+		
+		@RestController
+        @RequestMapping("/api")
+       public class MyController 
+	   {
+
+         @RequestMapping("/hello")
+        public String hello()
+	     {
+        return "Hello API!";
+         }
+       }
+	   http://localhost:8080/api/hello
+	   
+	   
+	   @RequestMapping Default HTTP Methods
+		When you use @RequestMapping without specifying a method, it maps to ALL HTTP methods by default.
+		This means the endpoint will accept:
+
+			GET
+			POST
+			PUT
+			DELETE
+			PATCH
+			HEAD
+			OPTIONS
+			TRACE
+			
+			
+		🔷 1. Class-Level @RequestMapping
+
+       👉 Applied on the class
+       👉 Defines a base URL (common prefix) for all methods inside the controller
+	   
+	   
+	   🔷 2. Method-Level @RequestMapping
+
+	   👉 Applied on individual methods
+	   👉 Defines the specific endpoint
+		
+	   
+	   
+	   
+	   
+	   
+
 			
 
 
