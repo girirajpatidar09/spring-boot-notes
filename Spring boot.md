@@ -2374,23 +2374,46 @@ order initialized
 
 
 
+## 📌 @Lazy on Class vs Field Injection
 
+---
 
+## ✅ Example
 
+```java
+@Component
+@Lazy
+public class Order {
 
-			
-			
-			
+    public Order() {
+        System.out.println("Order initialized");
+    }
+}
+```
 
-				
+```java
+@Component
+public class Invoice {
 
+    @Lazy
+    @Autowired
+    private Order order;
 
+    public Invoice() {
+        System.out.println("Invoice initialized");
+    }
+}
+```
 
+---
 
+## 🖥️ Output
 
+```text
+Invoice initialized
+```
 
-
-
+---
 
 
 
