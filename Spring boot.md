@@ -1264,14 +1264,16 @@ public class Order {
 ```
 
 
+
 Here Constructor is called then beasn is injected
 
 		
 		
-
+```text
 Output at startup of application :
 initializing user
 Lazy: initializing Order
+```
 
 
 ###  Step 4: Perform tasks before Bean is used
