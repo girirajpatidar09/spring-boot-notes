@@ -1146,6 +1146,70 @@ and automatically register them as beans.
 				System.out.println("initializing Order");
 			}
 		}
+		
+
+## lifecycle of Bean
+
+        -Application Start 
+		
+        → IOC Container Started 
+            (Configuration Loaded)
+			
+        → Construct Bean 
+		
+        → Inject Dependency Into Constructed Bean 
+		
+        → @PostConstruct 
+		
+        → Use the Bean 
+		
+        → @PreDestroy 
+		
+        → Bean Destroyed
+		
+
+### Step 1: IOC Container Initialization
+
+-> During Application Startup, Spring Boot invokes IOC Container
+   (ApplicationContext provides the implementation of IOC container)
+
+-> IOC Container makes use of Configuration and @ComponentScan
+   to look out for the classes for which beans need to be created
+   
+   
+🖥️ Console Output (IOC Container Invoked)
+main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+main] o.apache.catalina.core.StandardService  : Starting service [Tomcat]
+main] o.apache.catalina.core.StandardEngine   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+main] o.a.c.c.C.[Tomcat].[localhost].[/]      : Initializing Spring embedded WebApplicationContext
+main] o.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 419 ms
+main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+main] c.c.i.SpringbootApplication             : Started SpringbootApplication in 0.771 seconds (pro
+
+
+###  Step 2: Construct the Beans
+
+📦 Bean Class Example
+@Component
+public class User {
+
+    public User() {
+        System.out.println("initializing user");
+    }
+}
+
+
+Cosole output 
+
+
+2026-04-03T16:22:42.413+05:30  INFO 29308 --- [Demo2] [           main] com.giriraj.Demo2Application             : Starting Demo2Application using Java 17.0.12 with PID 29308 (C:\Pratice STS\Demo2\target\classes started by girir in C:\Pratice STS\Demo2)
+2026-04-03T16:22:42.417+05:30  INFO 29308 --- [Demo2] [           main] com.giriraj.Demo2Application             : No active profile set, falling back to 1 default profile: "default"
+initializing user
+2026-04-03T16:22:42.905+05:30  INFO 29308 --- [Demo2] [           main] com.giriraj.Demo2Application             : Started Demo2Application in 0.886 seconds (process running for 1.387)
+
+
+		
+		
 
 
 		  
