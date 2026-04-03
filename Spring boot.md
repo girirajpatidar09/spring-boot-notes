@@ -2586,69 +2586,105 @@ Error creating bean with name 'user'
 
 ---
 
-## ✅ Solutions
+
+
+## 📌 Solution: Using @Primary Annotation
 
 ---
 
-### ✔️ Option 1: Use `@Primary`
+## 📦 Interface
+
+```java
+public interface Order {
+}
+```
+
+---
+
+## ❌ Problem Recap
+
+- Multiple implementations of `Order`:
+  - `OnlineOrder`
+  - `OfflineOrder`
+- Spring gets confused → ❌ Unsatisfied Dependency
+
+---
+
+## ✅ Solution: Use `@Primary`
+
+---
+
+### 📦 OnlineOrder (Primary Bean)
 
 ```java
 @Component
 @Primary
 public class OnlineOrder implements Order {
-}
-```
 
-👉 Spring will inject this bean by default
-
----
-
-### ✔️ Option 2: Use `@Qualifier`
-
-```java
-@Component
-public class User {
-
-    @Autowired
-    @Qualifier("offlineOrder")
-    private Order order;
-}
-```
-
-👉 Explicitly tells Spring which bean to use
-
----
-
-### ✔️ Option 3: Use Constructor Injection (with Qualifier)
-
-```java
-@Component
-public class User {
-
-    private final Order order;
-
-    public User(@Qualifier("onlineOrder") Order order) {
-        this.order = order;
+    public OnlineOrder() {
+        System.out.println("Online order initialized");
     }
 }
 ```
 
 ---
 
+### 📦 OfflineOrder
+
+```java
+@Component
+public class OfflineOrder implements Order {
+
+    public OfflineOrder() {
+        System.out.println("Offline order initialized");
+    }
+}
+```
+
+---
+
+### 👤 User Class
+
+```java
+@Component
+public class User {
+
+    @Autowired
+    private Order order;
+
+    public User() {
+        System.out.println("User initialized");
+    }
+}
+```
+
+---
+
+## 🖥️ Output
+
+```text
+Online order initialized
+User initialized
+```
+
+---
+
+## 💡 How it works?
+
+- `@Primary` tells Spring:
+  👉 “If multiple beans exist, use this one by default”
+
+---
+
 ## 🎯 Key Point
 
-> When multiple beans of the same type exist,  
-> Spring needs help to decide which one to inject.
+> `@Primary` resolves ambiguity when multiple beans of the same type exist.
 
 ---
 
-## 💡 Summary
+## ⚠️ Note
 
-- Multiple implementations → ambiguity ❌  
-- Use:
-  - `@Primary` → default bean  
-  - `@Qualifier` → specific bean  
+- If you need a **specific bean**, use `@Qualifier` instead  
+- `@Primary` is used for **default selection**
 
 ---
-
-
