@@ -2289,7 +2289,6 @@ public class Order {
 
 ### 🧠 Concept
 
-Using `@Lazy` with field injection helps **break circular dependency** by delaying bean initialization.
 
 ---
 
@@ -2330,41 +2329,6 @@ Order initialized
 
 ---
 
-## 💡 How it works?
-
-- `Order` bean is marked as **lazy**
-- Spring does **not create Order immediately**
-- Instead, it creates a **proxy object**
-- Actual `Order` object is created **only when needed**
-
----
-
-## 🔄 Flow
-
-```text
-1. Invoice bean is created first
-2. Order is not created immediately (because of @Lazy)
-3. Proxy of Order is injected into Invoice
-4. When Order is actually used → real object is created
-```
-
----
-
-## 🎯 Key Points
-
-- Helps resolve **circular dependency**
-- Uses **lazy initialization**
-- Injects **proxy instead of real object initially**
-- Useful but not a permanent design solution
-
----
-
-## ⚠️ Recommendation
-
-> Use `@Lazy` as a workaround.  
-> Prefer **refactoring the code** for better design.
-
----
 
 
 
