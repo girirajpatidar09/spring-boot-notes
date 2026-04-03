@@ -2039,6 +2039,76 @@ Parameter 0 of constructor in User required a bean of type 'Order' that could no
 - Constructor Injection → ✅ Startup failure (early detection)  
 - Early failure = **easier debugging + safer application**
 
+---
+
+
+
+
+
+
+## 📌 Constructor Injection Advantage: Unit Testing is Easy
+
+---
+
+### ✅ 4. Unit Testing Becomes Easy
+
+- Constructor Injection allows us to **inject dependencies manually**
+- No need to start the Spring container for testing
+- Easy to use **mock objects**
+
+---
+
+## 📦 Example (Production Code)
+
+```java
+@Component
+public class User {
+
+    private Order order;
+
+    public User(Order order) {
+        this.order = order;
+        System.out.println("User initialized");
+    }
+
+    public void process() {
+        order.process();
+    }
+}
+```
+
+---
+
+## 🧪 Example (Unit Test using Mockito)
+
+```java
+class UserTest {
+
+    private Order orderMockObj;
+    private User user;
+
+    @BeforeEach
+    public void setup() {
+        this.orderMockObj = Mockito.mock(Order.class);
+        this.user = new User(orderMockObj);
+    }
+}
+```
+
+---
+
+## 💡 Why this is Easy?
+
+- We can directly pass **mock dependencies**  
+- No need for `@Autowired` or Spring context  
+- Faster and simpler testing  
+
+---
+
+## 🎯 Key Point
+
+> Constructor Injection makes unit testing easy because dependencies can be manually injected using mocks.
+
 ---		
 
 
