@@ -3327,3 +3327,154 @@ fetchuser api invoked
 ```
 
 ---
+
+
+
+## 📌 Scope Mismatch Problem (Singleton + Request)
+
+---
+
+## ❌ Scenario
+
+```java
+@RestController
+@Scope("singleton")
+@RequestMapping("/api")
+public class TestController1 {
+
+    @Autowired
+    private User user;
+
+    public TestController1() {
+        System.out.println("TestController1 instance initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("TestController1 object hashCode: " + this.hashCode()
+                + " | User object hashCode: " + user.hashCode());
+    }
+
+    @GetMapping("/fetchUser")
+    public ResponseEntity<String> getUserDetails() {
+        System.out.println("fetchUser api invoked");
+        return ResponseEntity.ok("response");
+    }
+}
+```
+
+---
+
+## 📦 User Bean (Request Scope)
+
+```java
+@Component
+@Scope("request")
+public class User {
+
+    public User() {
+        System.out.println("User initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("User object hashCode: " + this.hashCode());
+    }
+}
+```
+
+---
+
+## 💥 Error
+
+```text
+APPLICATION FAILED TO START
+
+UnsatisfiedDependencyException:
+Error creating bean with name 'testController1'
+```
+
+---
+
+## ❓ Why this happens?
+
+- `TestController1` → **Singleton** (created at startup)
+- `User` → **Request scope** (created per HTTP request)
+
+👉 Problem:
+
+```text
+Singleton bean is trying to inject Request bean ❌
+```
+
+👉 At startup:
+- No HTTP request exists ❌  
+- So Spring **cannot create User bean**
+
+---
+
+## 🔥 Core Issue
+
+```text
+Lifecycle mismatch:
+Singleton (long-lived) ❌ depends on Request (short-lived)
+```
+
+---
+
+## ✅ Solutions
+
+---
+
+### ✔️ Option 1: Use `@Lazy`
+
+```java
+@Autowired
+@Lazy
+private User user;
+```
+
+👉 Injects proxy → real object created during request
+
+---
+
+### ✔️ Option 2: Use `ObjectProvider`
+
+```java
+@Autowired
+private ObjectProvider<User> userProvider;
+
+public void someMethod() {
+    User user = userProvider.getObject();
+}
+```
+
+---
+
+### ✔️ Option 3: Use Scoped Proxy (Best for this case 🔥)
+
+```java
+@Component
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class User {
+}
+```
+
+👉 Spring injects proxy → resolves scope mismatch
+
+---
+
+## 🎯 Final Understanding
+
+| Bean Type | Lifecycle |
+|----------|----------|
+| Singleton | App startup → till shutdown |
+| Request   | Per HTTP request |
+
+---
+
+## 🧠 Interview Line
+
+> “A shorter-lived bean (request) cannot be injected into a longer-lived bean (singleton) without using proxy.”
+
+---
