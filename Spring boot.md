@@ -2216,44 +2216,7 @@ The dependencies of some of the beans in the application context form a cycle:
 
 ---
 
-## ✅ How to Fix Circular Dependency
 
-### ✔️ Option 1: Use `@Lazy`
-
-```java
-@Component
-public class Order {
-
-    @Autowired
-    @Lazy
-    private Invoice invoice;
-}
-```
-
-👉 Delays initialization → breaks the cycle
-
----
-
-### ✔️ Option 2: Use Constructor Injection (Recommended 🔥)
-
-👉 Helps detect circular dependency at startup (fail-fast)
-
----
-
-### ✔️ Option 3: Redesign the Code
-
-- Avoid tight coupling  
-- Introduce a third service  
-- Use interfaces or events  
-
----
-
-## 🎯 Key Point
-
-> Circular dependency is a design problem ❌  
-> Best solution is to **refactor the code**, not just fix it technically.
-
----	
 
 
 
