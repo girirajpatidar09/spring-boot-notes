@@ -3526,3 +3526,118 @@ fetchUser api invoked
 ```
 
 ---
+
+
+
+
+
+## 📌 Session Scope
+
+---
+
+### ✅ Key Points
+
+- A **new object is created for each HTTP session**  
+- Bean is **lazily initialized**  
+- Session is created when user hits any endpoint  
+- Bean remains active **until session expires or is invalidated**  
+
+---
+
+## 📦 User Bean
+
+```java
+@Component
+public class User {
+
+    public User() {
+        System.out.println("User initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("User object hashCode: " + this.hashCode());
+    }
+
+    public void dummyMethod() {
+        // some logic
+    }
+}
+```
+
+---
+
+## 🌐 Controller Example
+
+```java
+@RestController
+@Scope("session")
+@RequestMapping("/api")
+public class TestController1 {
+
+    @Autowired
+    private User user;
+
+    public TestController1() {
+        System.out.println("TestController1 instance initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("TestController1 object hashCode: " + this.hashCode()
+                + " | User object hashCode: " + user.hashCode());
+    }
+
+    @GetMapping("/fetchUser")
+    public ResponseEntity<String> getUserDetails() {
+        System.out.println("fetchUser api invoked");
+        return ResponseEntity.ok("response");
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        System.out.println("End the session");
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return ResponseEntity.ok("Session ended");
+    }
+}
+```
+
+---
+
+
+---
+
+## 🖥️ Output Behavior
+
+```text
+
+User initialization 
+User Object hashCode : 12345
+
+after hitting api 
+TestController1 instance initialization
+TestController1 object hashCode : 67890   User object hashCode: : 12345
+fetchUser api Invoked
+
+Again hitting API
+fetchUser api invoked
+
+Again hitting api
+end of the session
+
+Again hitting api means new session
+
+TestController1 instance initialization
+TestController1 object hashCode : 896745   User object hashCode: : 12345
+fetchUser api Invoked
+
+
+ 
+
+
+
+
+---
+
