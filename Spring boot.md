@@ -2927,3 +2927,139 @@ Singleton  Prototype  Request   Session
 
 ---
 
+
+
+
+
+
+## 📌 Singleton Scope (Detailed)
+
+---
+
+### ✅ Key Points
+
+- Default scope in Spring ✔️  
+- Only **one instance** is created per IOC container  
+- Bean is **eagerly initialized**  
+  (created at application startup)
+
+---
+
+## 📦 Bean Example
+
+```java
+@Component
+@Scope("singleton") // optional (default)
+public class User {
+
+    public User() {
+        System.out.println("User initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("User object hashCode: " + this.hashCode());
+    }
+}
+```
+
+---
+
+## 🌐 Controller Example 1
+
+```java
+@RestController
+@RequestMapping("/api")
+public class TestController1 {
+
+    @Autowired
+    private User user;
+
+    public TestController1() {
+        System.out.println("TestController1 instance initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("TestController1 object hashCode: " + this.hashCode()
+                + " | User object hashCode: " + user.hashCode());
+    }
+
+    @GetMapping("/fetchUser")
+    public ResponseEntity<String> getUserDetails() {
+        System.out.println("fetchUser api invoked");
+        return ResponseEntity.ok("User fetched");
+    }
+}
+```
+
+---
+
+## 🌐 Controller Example 2
+
+```java
+@RestController
+@RequestMapping("/api")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class TestController2 {
+
+    @Autowired
+    private User user;
+
+    public TestController2() {
+        System.out.println("TestController2 instance initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("TestController2 object hashCode: " + this.hashCode()
+                + " | User object hashCode: " + user.hashCode());
+    }
+
+    @GetMapping("/fetchUser2")
+    public ResponseEntity<String> getUserDetails() {
+        System.out.println("fetchUser2 api invoked");
+        return ResponseEntity.ok("User fetched");
+    }
+}
+```
+
+---
+
+## 🖥️ Output Observation
+
+```text
+User initialization
+User object hashCode: 12345
+
+TestController1 instance initialization
+TestController1 object hashCode: 67890 | User object hashCode: 12345
+
+TestController2 instance initialization
+TestController2 object hashCode: 98765 | User object hashCode: 12345
+```
+
+---
+
+## 💡 Key Observation
+
+- `User` bean hashCode is **same everywhere** ✅  
+- Only **one instance** of `User` is created  
+- Shared across all controllers  
+
+---
+
+## 🎯 Final Understanding
+
+> Singleton scope means **one shared instance per Spring container**
+
+---
+
+## ⚠️ Important Notes
+
+- Be careful with **mutable data**  
+- Not thread-safe by default  
+- Avoid storing request-specific data in singleton beans  
+
+---
+
