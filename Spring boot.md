@@ -2794,3 +2794,107 @@ User initialized
 
 ---
 
+
+
+## 📌 @Value Annotation
+
+`@Value` is a Spring annotation used to inject **simple values** or **property values** into fields, methods, or constructors.  
+It helps make code more flexible and avoids hardcoding values.
+
+---
+
+## ✅ Example 1: Inject Hardcoded Values
+
+```java
+@Component
+public class User {
+
+    @Value("Giriraj")
+    private String name;
+
+    @Value("101")
+    private int id;
+
+    public void display() {
+        System.out.println(name + " " + id);
+    }
+}
+```
+
+---
+
+## ✅ Example 2: Inject Values from `application.properties`
+
+### 📄 application.properties
+
+```properties
+user.name=Giriraj
+user.id=101
+```
+
+---
+
+### 📦 User Class
+
+```java
+@Component
+public class User {
+
+    @Value("${user.name}")
+    private String name;
+
+    @Value("${user.id}")
+    private int id;
+
+    public void display() {
+        System.out.println(name + " " + id);
+    }
+}
+```
+
+---
+
+## ✅ Example 3: Constructor Injection with @Value
+
+```java
+@Component
+public class User {
+
+    private final String name;
+    private final int id;
+
+    public User(@Value("${user.name}") String name,
+                @Value("${user.id}") int id) {
+        this.name = name;
+        this.id = id;
+    }
+}
+```
+
+---
+
+## 💡 Key Points
+
+- Used for injecting:
+  - Primitive values (`int`, `double`)
+  - Strings
+  - Values from `application.properties` / `application.yml`
+- Supports **SpEL (Spring Expression Language)**  
+- Helps in making applications **configurable**
+
+---
+
+## 🎯 Example Output
+
+```text
+Giriraj 101
+```
+
+---
+
+## ⚠️ Note
+
+> Prefer using `@Value` with external configuration (`application.properties`) instead of hardcoding values.
+
+---
+
