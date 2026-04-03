@@ -1289,7 +1289,9 @@ public class User {
 
 
 @Lazy
+
 @Component
+
 public class Order {
 
     public Order() {
@@ -1300,8 +1302,11 @@ public class Order {
 
 
 Output ::
+
 initializing user
+
 Lazy: initializing Order
+
 Bean has been constructed and dependencies have been injected
 		  
 		 
