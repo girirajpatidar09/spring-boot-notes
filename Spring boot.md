@@ -1208,10 +1208,101 @@ initializing user<br>
 2026-04-03T16:22:42.905+05:30  INFO 29308 --- [Demo2] [           main] com.giriraj.Demo2Application             : Started Demo2Application in 0.886 seconds (process running for 1.387)<br>
 
 
+
+### Step 3: Dependency Injection
+
+-> Inject the Dependency into the Constructed Bean
+
+-> @Autowired first looks for a bean of the required type
+
+-> If bean is found, Spring will inject it.
+   Different ways of Injection:
+     □ Constructor Injection
+     □ Setter Injection
+     □ Field Injection
+
+****** We will see each injection and which one to use in next part ******
+
+-> If bean is not found, Spring will create one and then inject it
+
+
+
+
+📦 Example Code
+👤 User Class
+@Component
+public class User {
+
+    @Autowired
+    Order order;
+
+    public User() {
+        System.out.println("initializing user");
+    }
+}
+
+
+
+📦 Order Class (Lazy Initialization)
+@Lazy
+@Component
+public class Order {
+
+    public Order() {
+        System.out.println("Lazy: initializing Order");
+    }
+}
+
+
+Here Constructor is called then beasn is injected
+
 		
 		
 
+Output at startup of application :
+initializing user
+Lazy: initializing Order
 
+
+###  Step 4: Perform tasks before Bean is used
+
+ Perform any task before Bean to be used in application.
+ 
+ 
+@Component
+public class User {
+
+    @Autowired
+    Order order;
+
+    @PostConstruct
+    public void initialize() {
+        System.out.println("Bean has been constructed and dependencies have been injected");
+    }
+
+    public User() {
+        System.out.println("initializing user");
+    }
+}
+
+
+
+
+@Lazy
+@Component
+public class Order {
+
+    public Order() {
+        System.out.println("Lazy: initializing Order");
+    }
+}
+
+
+
+Output ::
+initializing user
+Lazy: initializing Order
+Bean has been constructed and dependencies have been injected
 		  
 		 
 		   
