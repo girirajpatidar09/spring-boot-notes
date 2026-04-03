@@ -2511,3 +2511,144 @@ Order initialized
 ```
 
 ---
+
+
+
+## 📌 Unsatisfied Dependency
+
+---
+
+## ❌ Problem
+
+```java
+@Component
+public class User {
+
+    @Autowired
+    private Order order;
+
+    public User() {
+        System.out.println("User initialized");
+    }
+}
+```
+
+---
+
+## 📦 Order Interface & Implementations
+
+```java
+public interface Order {
+}
+```
+
+```java
+@Component
+public class OnlineOrder implements Order {
+
+    public OnlineOrder() {
+        System.out.println("Online order initialized");
+    }
+}
+```
+
+```java
+@Component
+public class OfflineOrder implements Order {
+
+    public OfflineOrder() {
+        System.out.println("Offline order initialized");
+    }
+}
+```
+
+---
+
+## 💥 Error
+
+```text
+APPLICATION FAILED TO START
+
+UnsatisfiedDependencyException:
+Error creating bean with name 'user'
+```
+
+---
+
+## ❓ Why this happens?
+
+- Spring finds **multiple beans** of type `Order`:
+  - `OnlineOrder`
+  - `OfflineOrder`
+
+👉 It gets confused ❌  
+👉 It doesn’t know which one to inject
+
+---
+
+## ✅ Solutions
+
+---
+
+### ✔️ Option 1: Use `@Primary`
+
+```java
+@Component
+@Primary
+public class OnlineOrder implements Order {
+}
+```
+
+👉 Spring will inject this bean by default
+
+---
+
+### ✔️ Option 2: Use `@Qualifier`
+
+```java
+@Component
+public class User {
+
+    @Autowired
+    @Qualifier("offlineOrder")
+    private Order order;
+}
+```
+
+👉 Explicitly tells Spring which bean to use
+
+---
+
+### ✔️ Option 3: Use Constructor Injection (with Qualifier)
+
+```java
+@Component
+public class User {
+
+    private final Order order;
+
+    public User(@Qualifier("onlineOrder") Order order) {
+        this.order = order;
+    }
+}
+```
+
+---
+
+## 🎯 Key Point
+
+> When multiple beans of the same type exist,  
+> Spring needs help to decide which one to inject.
+
+---
+
+## 💡 Summary
+
+- Multiple implementations → ambiguity ❌  
+- Use:
+  - `@Primary` → default bean  
+  - `@Qualifier` → specific bean  
+
+---
+
+
