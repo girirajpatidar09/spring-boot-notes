@@ -2417,17 +2417,47 @@ Invoice initialized
 
 
 
+## 📌 Resolving Circular Dependency using @Lazy
 
+---
 
+## ✅ Example
 
+```java
+@Component
+public class Order {
 
-   
+    @Autowired
+    private Invoice invoice;
 
-  
-  
+    public Order() {
+        System.out.println("order initialized");
+    }
+}
+```
 
+```java
+@Component
+public class Invoice {
 
+    @Lazy
+    @Autowired
+    private Order order;
 
+    public Invoice() {
+        System.out.println("Invoice initialized");
+    }
+}
+```
 
+---
 
+## 🖥️ Output
+
+```text
+Invoice initialized
+Order initialized
+```
+
+---
 
