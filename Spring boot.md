@@ -3216,4 +3216,114 @@ fetchUser api invoked
 
 
 
+## 📌 Request Scope
 
+---
+
+### ✅ Key Points
+
+- A **new object is created for each HTTP request**  
+- Bean is **lazily initialized**  
+- Exists only for the duration of a single request  
+
+---
+
+
+## Scope Request
+
+### 📦 User Bean (Request Scope)
+
+```java
+@Component
+@Scope("request")
+public class User {
+
+    public User() {
+        System.out.println("User initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("User object hashCode: " + this.hashCode());
+    }
+}
+```
+
+---
+
+### 📦 Student Bean (Prototype Scope)
+
+```java
+@Component
+@Scope("prototype")
+public class Student {
+
+    @Autowired
+    private User user;
+
+    public Student() {
+        System.out.println("Student instance initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Student object hashCode: " + this.hashCode()
+                + " | User object hashCode: " + user.hashCode());
+    }
+}
+```
+
+---
+
+### 🌐 Controller Example
+
+```java
+@RestController
+@Scope("request")
+@RequestMapping("/api")
+public class TestController1 {
+
+    @Autowired
+    private User user;
+
+    @Autowired
+    private Student student;
+
+    public TestController1() {
+        System.out.println("TestController1 instance initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("TestController1 object hashCode: " + this.hashCode()
+                + " | User object hashCode: " + user.hashCode()
+                + " | Student object hashCode: " + student.hashCode());
+    }
+
+    @GetMapping("/fetchUser")
+    public ResponseEntity<String> getUserDetails() {
+        System.out.println("fetchUser api invoked");
+        return ResponseEntity.ok("User fetched");
+    }
+}
+```
+
+---
+
+
+## 🖥️ Output Behavior
+
+```text
+
+At Application startup no object is created
+--- Request 1 ---
+TestController1 instance initialization
+User initialization
+User object hashCode: 1111
+Student instance initialization
+Student Object hashCode :12345  User object hashCode :1111
+TestController1 object hashCode: 67890 User Object hashCode : 1111 Student Object hashCode :12345
+fetchuser api invoked
+```
+
+---
