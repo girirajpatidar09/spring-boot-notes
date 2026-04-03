@@ -1189,7 +1189,9 @@ main] c.c.i.SpringbootApplication             : Started SpringbootApplication in
 
 ###  Step 2: Construct the Beans
 
-📦 Bean Class Example
+ Bean Class Example
+
+```java
 @Component
 public class User {
 
@@ -1197,6 +1199,7 @@ public class User {
         System.out.println("initializing user");
     }
 }
+```
 
 
 Cosole output 
@@ -1228,22 +1231,28 @@ initializing user<br>
 
 
 
-📦 Example Code
-👤 User Class
+## 📦 Example Code
+
+ User Class
+
+```java
 @Component
 public class User {
 
     @Autowired
-    Order order;
+    private Order order;
 
     public User() {
         System.out.println("initializing user");
     }
 }
+```
 
+---
 
+ Order Class (Lazy Initialization)
 
-📦 Order Class (Lazy Initialization)
+```java
 @Lazy
 @Component
 public class Order {
@@ -1252,6 +1261,7 @@ public class Order {
         System.out.println("Lazy: initializing Order");
     }
 }
+```
 
 
 Here Constructor is called then beasn is injected
