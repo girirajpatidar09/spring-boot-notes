@@ -949,174 +949,201 @@ and automatically register them as beans.
 <img width="602" height="481" alt="b3" src="https://github.com/user-attachments/assets/8d858ed6-151a-48e1-8e2f-731434bd8083" />
 
 
-      
-			@Component
-			public class User {
-				
-				String name;
-				int id;
-				public String getName() {
-					return name;
-				}
-				public void setName(String name) {
-					this.name = name;
-				}
-				public int getId() {
-					return id;
-				}
-				public void setId(int id) {
-					this.id = id;
-				}
-				
-				}
-				
-		   -> This above example works fine .
-		   
-		   When Spring tries to create a bean using @Component, it needs to instantiate the class using reflection — and by default, it looks for 
-		   a no-argument constructor.
-		   
-		   
-		   
-		  
+## 📌 Bean Creation with Constructors (Important Concept)
 
+---
 
-					@Component
-					public  class User {
-						
-						int id;
-						String name;
-						public User(int id, String name) {
-							super();
-							this.id = id;
-							this.name = name;
-						}
-						public int getId() {
-							return id;
-						}
-						public void setId(int id) {
-							this.id = id;
-						}
-						public String getName() {
-							return name;
-						}
-						public void setName(String name) {
-							this.name = name;
-						}
-						}
-						
-						***************************
-                        APPLICATION FAILED TO START
-						***************************
-						
-					If a class has exactly ONE constructor, Spring will automatically use it for injection — BUT only if the parameters can be
-					satisfied from the Spring context (i.e., they are Spring beans).
-					
-					int id → primitive, not a Spring bean ❌
-                  String name → not a Spring-managed bean ❌
+## ✅ Case 1: Default Constructor (Works Fine ✔️)
 
-               Spring cannot find values to inject for these parameters from the Application Context, so it fails to instantiate the bean entirely.
+```java
+@Component
+public class User {
 
+    private String name;
+    private int id;
 
-        -> How to fix this above problem :
-   
-      
-		✔️ Option 1: Add Default Constructor (Easiest)
-		public User() {
-		}
-		
-		✔️ Option 2: Use @Value (for fixed values)
-		@Component
-		public class User {
+    public String getName() {
+        return name;
+    }
 
-			int id;
-			String name;
+    public void setName(String name) {
+        this.name = name;
+    }
 
-			public User(@Value("1") int id, @Value("Giriraj") String name) {
-				this.id = id;
-				this.name = name;
-			}
-		}
+    public int getId() {
+        return id;
+    }
 
-		
-		
-		 @Bean can also solve that problem of application started failde, because  spring boot does not know what to these
-		 constructor
-		 
-		 So @Bean comes in the picture ,where we provide the configuratin details and tells Spring boot to use
-		 it while creating a Bean .
-		 
-		 
-		 @Configuration
-         public class Config {
+    public void setId(int id) {
+        this.id = id;
+    }
+}
+```
 
-			@Bean
-			User createUserBean()
-			{
-				
-				 String name = "ram";
-				 return new User(101,name);
-				
-	         }
-			 }
-			 
-			 
-			 
-			 
-			
-			public  class User {
-	
-				int id;
-				String name;
-				
-				
-				public User(int id,String name)
-				{
-					this.id = id;
-					this.name = name;
-					System.out.println("Giriraj Patidar");
-				}
-				public int getId() {
-					return id;
-				}
-				public void setId(int id) {
-					this.id = id;
-				}
-				public String getName() {
-					return name;
-				}
-				public void setName(String name) {
-					this.name = name;
-				}
-				}
+### 💡 Why this works?
 
-                -------------------------------------------------------------------------------------------------------------
-				
-			Configuration
-				public class Config {
+- Spring uses **reflection** to create objects  
+- It looks for a **no-argument constructor**  
+- Since default constructor is available → Bean is created successfully ✅
 
-					@Bean
-					User createUserBean()
-					{
-						
-						 String name = "ram";
-						 return new User(101,name);
-						
-					}
-					
-					
-					@Bean
-					
-					User createAnotherUserBean()
-					{
-						
-						 String name = "sita";
-						 return new User(102,name);
-						
-					}
-					
-		   Here two objects are created 
-		   
-		   ---------------------------------------------------------------------------------------------------------------------
+---
+
+## ❌ Case 2: Parameterized Constructor (Fails ❌)
+
+```java
+@Component
+public class User {
+
+    private int id;
+    private String name;
+
+    public User(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+```
+
+---
+
+### 💥 Error
+
+```
+APPLICATION FAILED TO START
+```
+
+---
+
+### ❓ Why it fails?
+
+- Spring tries to use the **only constructor**
+- But parameters must be **Spring beans**
+
+```
+int id     → ❌ Not a bean
+String name → ❌ Not a Spring-managed bean
+```
+
+👉 Spring cannot resolve these dependencies → **Bean creation fails**
+
+---
+
+## 🧠 Important Rule
+
+> If a class has **only one constructor**, Spring will use it automatically  
+> BUT only if all parameters can be resolved from the Spring container
+
+---
+
+## ✅ How to Fix This?
+
+---
+
+### ✔️ Option 1: Add Default Constructor (Easiest)
+
+```java
+public User() {
+}
+```
+
+👉 Now Spring can use default constructor
+
+---
+
+### ✔️ Option 2: Use `@Value`
+
+```java
+@Component
+public class User {
+
+    private int id;
+    private String name;
+
+    public User(@Value("1") int id, @Value("Giriraj") String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+```
+
+👉 Injects fixed values from configuration
+
+---
+
+### ✔️ Option 3: Use `@Bean` (Best for Custom Object Creation 🔥)
+
+```java
+@Configuration
+public class Config {
+
+    @Bean
+    public User createUserBean() {
+        String name = "Ram";
+        return new User(101, name);
+    }
+}
+```
+
+---
+
+### 📦 User Class
+
+```java
+public class User {
+
+    private int id;
+    private String name;
+
+    public User(int id, String name) {
+        this.id = id;
+        this.name = name;
+        System.out.println("User created");
+    }
+
+    // getters & setters
+}
+```
+
+---
+
+## 🔥 Multiple Beans Example
+
+```java
+@Configuration
+public class Config {
+
+    @Bean
+    public User createUserBean() {
+        return new User(101, "Ram");
+    }
+
+    @Bean
+    public User createAnotherUserBean() {
+        return new User(102, "Sita");
+    }
+}
+```
+
+---
+
+### 💡 Result
+
+- Two `User` beans are created:
+  - `createUserBean`
+  - `createAnotherUserBean`
+
+---
+
+## 🎯 Final Summary
+
+- Default constructor → ✅ works automatically  
+- Parameterized constructor → ❌ fails if params are not beans  
+- Use:
+  - `@Value` → for fixed values  
+  - `@Bean` → for manual object creation  
+- Multiple `@Bean` → multiple objects created  
+
+---
 		   
 
 ## 🕒 At what time these beans get created
