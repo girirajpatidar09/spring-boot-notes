@@ -1202,10 +1202,10 @@ public class User {
 Cosole output 
 
 
-2026-04-03T16:22:42.413+05:30  INFO 29308 --- [Demo2] [           main] com.giriraj.Demo2Application             : Starting Demo2Application using Java 17.0.12 with PID 29308 (C:\Pratice STS\Demo2\target\classes started by girir in C:\Pratice STS\Demo2).
-2026-04-03T16:22:42.417+05:30  INFO 29308 --- [Demo2] [           main] com.giriraj.Demo2Application             : No active profile set, falling back to 1 default profile: "default".
-initializing user.
-2026-04-03T16:22:42.905+05:30  INFO 29308 --- [Demo2] [           main] com.giriraj.Demo2Application             : Started Demo2Application in 0.886 seconds (process running for 1.387).
+2026-04-03T16:22:42.413+05:30  INFO 29308 --- [Demo2] [           main] com.giriraj.Demo2Application             : Starting Demo2Application using Java 17.0.12 with PID 29308 (C:\Pratice STS\Demo2\target\classes started by girir in C:\Pratice STS\Demo2)<br>
+2026-04-03T16:22:42.417+05:30  INFO 29308 --- [Demo2] [           main] com.giriraj.Demo2Application             : No active profile set, falling back to 1 default profile: "default".<br>
+initializing user<br>
+2026-04-03T16:22:42.905+05:30  INFO 29308 --- [Demo2] [           main] com.giriraj.Demo2Application             : Started Demo2Application in 0.886 seconds (process running for 1.387)<br>
 
 
 		
