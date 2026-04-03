@@ -3063,3 +3063,153 @@ TestController2 object hashCode: 98765 | User object hashCode: 12345
 
 ---
 
+
+
+
+
+## 📌 Prototype Scope
+
+---
+
+### ✅ Key Points
+
+- A **new object is created every time** the bean is requested  
+- Bean is **lazily initialized** (created only when needed)  
+- Not shared like singleton  
+
+---
+
+## 📦 User Bean (Prototype)
+
+```java
+@Component
+@Scope("prototype")
+public class User {
+
+    public User() {
+        System.out.println("User initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("User object hashCode: " + this.hashCode());
+    }
+}
+```
+
+---
+
+## 📦 Student Bean
+
+```java
+@Component
+public class Student {
+
+    @Autowired
+    private User user;
+
+    public Student() {
+        System.out.println("Student instance initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Student object hashCode: " + this.hashCode()
+                + " | User object hashCode: " + user.hashCode());
+    }
+}
+```
+
+---
+
+## 🌐 Controller Example
+
+```java
+@RestController
+@RequestMapping("/api")
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+public class TestController1 {
+
+    @Autowired
+    private User user;
+
+    @Autowired
+    private Student student;
+
+    public TestController1() {
+        System.out.println("TestController1 instance initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("TestController1 object hashCode: " + this.hashCode()
+                + " | User object hashCode: " + user.hashCode()
+                + " | Student object hashCode: " + student.hashCode());
+    }
+
+    @GetMapping("/fetchUser")
+    public ResponseEntity<String> getUserDetails() {
+        System.out.println("fetchUser api invoked");
+        return ResponseEntity.ok("User fetched");
+    }
+}
+```
+
+---
+
+## 🖥️ Output Observation
+
+```text
+Student instance initialization
+User initialization
+User object hashCode: 1510009630
+
+Student object hashCode: 2092450685 | User object hashCode: 1510009630
+
+--- After hitting API ---
+
+
+
+TestController1 instance initialization
+User initialization
+User object hashCode : 1984730322
+TestController1 Object hashCode : 1786739287  User Object hashCode :1984730322 Student object hashCode :2092450685
+fetchUser api invoked
+```
+
+---
+
+## 💡 Key Observations
+
+- `User` bean is **prototype** → new object each time ✅  
+- Different `hashCode` = different instances  
+- `Student` is singleton → created only once  
+- Controller is prototype → new instance per request  
+
+---
+
+## ⚠️ Important Concept
+
+> When a **prototype bean is injected into a singleton**,  
+> it is created only once at injection time (NOT every use)
+
+---
+
+## 🎯 Final Understanding
+
+| Bean Type  | Behavior |
+|-----------|--------|
+| Singleton | One instance |
+| Prototype | New instance every time |
+
+---
+
+## 🚀 Summary
+
+- Prototype = multiple objects  
+- Lazy creation  
+- Useful for **stateful objects**  
+- Be careful when injecting into singleton  
+
+---
+
