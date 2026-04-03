@@ -1325,6 +1325,72 @@ Lazy: initializing Order
 Bean has been constructed and dependencies have been injected
 ```
 
+
+
+##  Step 6: Perform tasks before Bean is getting destroyed
+
+---
+
+### 🚀 Main Class (Closing IOC Container)
+
+```java
+@SpringBootApplication
+public class SpringbootApplication {
+
+    public static void main(String[] args) {
+        ConfigurableApplicationContext context =
+                SpringApplication.run(SpringbootApplication.class, args);
+
+        context.close(); // triggers bean destruction
+    }
+}
+```
+
+---
+
+### 📦 Bean Class Example
+
+```java
+@Component
+public class User {
+
+    @PostConstruct
+    public void initialize() {
+        System.out.println("Post Construct initialized");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("Bean is about to destroy, in PreDestroyMethod");
+    }
+
+    public User() {
+        System.out.println("initializing user");
+    }
+}
+```
+
+---
+
+### 🖥️ Output
+
+```text
+initializing user
+Post Construct initialized
+Bean is about to destroy, in PreDestroyMethod
+```
+
+---
+
+### 💡 Key Notes
+
+- `@PostConstruct` → runs after dependency injection  
+- `@PreDestroy` → runs before bean destruction  
+- `context.close()` → triggers destruction lifecycle  
+- Used for cleanup tasks (closing DB, releasing resources, etc.)
+
+---
+
 			
 
 
