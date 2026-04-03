@@ -2898,3 +2898,32 @@ Giriraj 101
 
 ---
 
+
+# 📌 @Scope Annotation
+
+`@Scope` is used to define the **lifecycle and visibility** of a Spring bean.
+
+---
+
+
+## 📌 Bean Scope
+
+```
+           Scope
+             │
+   ┌─────────┼─────────┬─────────┐
+   │         │         │         │
+Singleton  Prototype  Request   Session
+```
+
+---
+
+## 💡 Explanation
+
+- **Singleton** → One instance per container (default)  
+- **Prototype** → New instance every time requested  
+- **Request** → One instance per HTTP request  
+- **Session** → One instance per HTTP session  
+
+---
+
