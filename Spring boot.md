@@ -3029,15 +3029,16 @@ public class TestController2 {
 ## 🖥️ Output Observation
 
 ```text
-User initialization
-User object hashCode: 12345
-
-TestController1 instance initialization
-TestController1 object hashCode: 67890 | User object hashCode: 12345
-
-TestController2 instance initialization
-TestController2 object hashCode: 98765 | User object hashCode: 12345
+TestController instance initailization
+User initailzation 
+User Object hashCode : 1140202235
+TestController1 object hashCode : 1046302571  User object hashCode : 1140202235
+TestController2 instance initiazation 
+TestController2 object hashCode : 1525241607 User Object hashCode : 1140202235
+After hittin api
+fetch User api invoked
 ```
+
 
 ---
 
@@ -3212,4 +3213,7 @@ fetchUser api invoked
 - Be careful when injecting into singleton  
 
 ---
+
+
+
 
