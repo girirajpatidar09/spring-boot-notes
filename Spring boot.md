@@ -2372,52 +2372,6 @@ order initialized
 
 ---
 
-## ❓ What is happening here?
-
-- `@Lazy` is applied on the **field (`Order`)**
-- Spring initially injects a **proxy object** instead of the real `Order`
-
----
-
-## 🔄 Actual Flow
-
-```text
-1. Invoice bean is created
-2. Order dependency is required
-3. Because of @Lazy → proxy of Order is injected
-4. Later, when Order is accessed → real Order object is created
-5. Constructor of Order is called
-```
-
----
-
-## ⚠️ Why is `Order initialized` printed immediately?
-
-👉 Even though `@Lazy` is used, Spring may still initialize the real bean early due to:
-
-- Bean lifecycle processing  
-- Internal usage by Spring  
-- Circular dependency handling  
-- Proxy being accessed implicitly  
-
----
-
-## 💡 Key Points
-
-- `@Lazy` → delays object creation  
-- Proxy object is injected initially  
-- Real object is created **on first use**  
-- In some cases, initialization may still happen early  
-
----
-
-## 🎯 Final Understanding
-
-> `@Lazy` does not guarantee that the object will NEVER be created at startup.  
-> It only **tries to delay creation until the bean is actually needed**.
-
----
-
 
 
 
