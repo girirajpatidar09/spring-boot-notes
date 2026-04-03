@@ -1423,6 +1423,116 @@ Bean is about to destroy, in PreDestroyMethod
 ### Key Idea
 
 > Instead of creating dependencies inside the class, Spring injects them from outside.
+
+
+
+## 📌 Field Injection
+
+Field Injection is a way of injecting dependencies directly into class fields using `@Autowired`.
+
+---
+
+### Advantage
+
+- Easy to use (less boilerplate code)
+
+---
+
+###  Disadvantages
+
+1. ❗ `@Autowired` cannot be used with **immutable (`final`) fields**  
+   because field injection happens **after object creation**
+
+---
+
+### 💥 Problem Example (Incorrect ❌)
+
+```java
+@Component
+public class User {
+
+    @Autowired
+    private final Order order; // ❌ Not allowed
+
+}
+```
+
+👉 This will cause an error because:
+- `final` fields must be initialized during constructor execution
+- But field injection happens after object creation
+
+---
+
+### ✅ Correct Approach (Constructor Injection ✔️)
+
+```java
+@Component
+public class User {
+
+    private final Order order;
+
+    public User(Order order) {
+        this.order = order;
+    }
+}
+```
+
+---
+
+### 💡 Key Point
+
+> Field Injection does not support immutability.  
+> Use **Constructor Injection** when working with `final` fields.
+
+
+
+## 📌 Setter Injection
+
+Setter Injection is a way of injecting dependencies using setter methods.
+
+---
+
+### ❌ Disadvantages
+
+- Cannot make fields `final` (i.e., cannot make them immutable)
+- Object remains **mutable** (dependency can be changed later)
+- Not recommended for required dependencies
+
+---
+
+### 💥 Example
+
+```java
+@Component
+public class User {
+
+    private Order order;
+
+    @Autowired
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+}
+```
+
+---
+
+### ⚠️ Why not immutable?
+
+```java
+private final Order order; // ❌ Not allowed with setter injection
+```
+
+👉 Because:
+- `final` fields must be initialized in the constructor
+- Setter runs **after object creation**
+
+---
+
+### 💡 Key Point
+
+> Setter Injection allows flexibility but does not support immutability.  
+> Use it only for **optional dependencies**.
 			
 
 
