@@ -2217,6 +2217,68 @@ The dependencies of some of the beans in the application context form a cycle:
 ---
 
 
+## 📌 Solutions for Circular Dependency
+
+---
+
+### ✅ 1. Refactor the Code (Best Practice 🔥)
+
+- Identify the **common logic** between dependent classes
+- Move that logic into a **separate class/service**
+- This helps **break the circular dependency**
+
+#### 💡 Idea:
+
+```text
+Before:
+Order ↔ Invoice (circular ❌)
+
+After:
+        CommonService
+         ↑       ↑
+     Order     Invoice
+```
+
+👉 Both classes depend on a **third class**, not on each other
+
+---
+
+### ✅ 2. Use `@Lazy` Annotation
+
+```java
+@Component
+public class Order {
+
+    @Autowired
+    @Lazy
+    private Invoice invoice;
+}
+```
+
+---
+
+### 💡 How it works?
+
+- Spring creates a **proxy object** instead of the actual bean
+- Actual bean is created **only when needed (lazy initialization)**
+- This breaks the circular dependency at startup
+
+---
+
+### ⚠️ Note
+
+- `@Lazy` is a **temporary fix**, not a design solution  
+- Best approach is always **refactoring**
+
+---
+
+## 🎯 Final Recommendation
+
+- ✔ Prefer **refactoring (clean design)**  
+- ✔ Use `@Lazy` only when necessary  
+- ❌ Avoid tight coupling between classes  
+
+---
 
 
 
