@@ -1662,6 +1662,217 @@ public class Order {
 - Tight coupling → ❌ bad design  
 - DIP → depend on abstraction  
 - Spring solves this using → **Dependency Injection**
+
+
+
+
+## 📌 Constructor Injection
+
+---
+
+### 💡 Key Points
+
+- Dependency gets resolved at the time of **object initialization**
+- **Recommended** way of Dependency Injection ✅
+- Supports **immutability (final fields)**
+
+---
+
+## ✅ Example (Using @Autowired)
+
+```java
+@Component
+public class User {
+
+    private Order order;
+
+    @Autowired
+    public User(Order order) {
+        this.order = order;
+        System.out.println("User initialized");
+    }
+}
+```
+
+```java
+@Component
+@Lazy
+public class Order {
+
+    public Order() {
+        System.out.println("order initialized");
+    }
+}
+```
+
+---
+
+### 🖥️ Output
+
+```text
+order initialized
+User initialized
+```
+
+---
+
+## 🚀 Important Note
+
+> When only **one constructor** is present,  
+> using `@Autowired` is **not mandatory** (from Spring 4.3)
+
+---
+
+## ✅ Example (Without @Autowired)
+
+```java
+@Component
+public class User {
+
+    private Order order;
+
+    public User(Order order) {
+        this.order = order;
+        System.out.println("User initialized");
+    }
+}
+```
+
+```java
+@Component
+@Lazy
+public class Order {
+
+    public Order() {
+        System.out.println("order initialized");
+    }
+}
+```
+
+---
+
+## 🎯 Key Advantages
+
+- Supports **immutable objects (final fields)**
+- Ensures all required dependencies are available at creation time
+- Promotes **clean and testable code**
+- Recommended by Spring and industry best practices 🔥
+
+---
+
+
+## 📌 Constructor Injection (Multiple Constructors Case)
+
+---
+
+### ⚠️ Important Rule
+
+> When **more than one constructor** is present,  
+> using `@Autowired` on the constructor is **mandatory**
+
+---
+
+## ❌ Problem Example (Without @Autowired)
+
+```java
+@Component
+public class User {
+
+    private Order order;
+    private Invoice invoice;
+
+    public User(Order order) {
+        this.order = order;
+        System.out.println("User initialized with only Order");
+    }
+
+    public User(Invoice invoice) {
+        this.invoice = invoice;
+        System.out.println("User initialized with only Invoice");
+    }
+}
+```
+
+---
+
+### 💥 Error
+
+```text
+BeanInstantiationException: Failed to instantiate [User]: No default constructor found
+```
+
+👉 Spring gets confused ❌  
+👉 It doesn’t know **which constructor to use**
+
+---
+
+## ✅ Correct Example (Using @Autowired)
+
+```java
+@Component
+public class User {
+
+    private Order order;
+    private Invoice invoice;
+
+    public User(Order order) {
+        this.order = order;
+        System.out.println("User initialized with only Order");
+    }
+
+    @Autowired
+    public User(Invoice invoice) {
+        this.invoice = invoice;
+        System.out.println("User initialized with only Invoice");
+    }
+}
+```
+
+---
+
+## 📦 Supporting Classes
+
+```java
+@Component
+@Lazy
+public class Invoice {
+
+    public Invoice() {
+        System.out.println("invoice initialized");
+    }
+}
+```
+
+```java
+@Component
+@Lazy
+public class Order {
+
+    public Order() {
+        System.out.println("order initialized");
+    }
+}
+```
+
+---
+
+### 🖥️ Output
+
+```text
+invoice initialized
+User initialized with only Invoice
+```
+
+---
+
+## 💡 Key Points
+
+- If multiple constructors exist → `@Autowired` is required  
+- Spring uses the constructor marked with `@Autowired`  
+- Avoid ambiguity in dependency injection  
+- Best practice: Prefer **single constructor** when possible  
+
+---
 			
 
 
