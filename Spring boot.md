@@ -1396,13 +1396,13 @@ Bean is about to destroy, in PreDestroyMethod
 
 ---
 
-### ❓ What is Dependency Injection?
+###  What is Dependency Injection?
 
 **Dependency Injection (DI)** is a design pattern in which an object's dependencies (beans) are provided (injected) by an external source, such as the **IoC Container**.
 
 ---
 
-### 🔧 Types of Dependency Injection
+###  Types of Dependency Injection
 
 - **Constructor Injection**
 - **Setter Injection**
@@ -1410,7 +1410,7 @@ Bean is about to destroy, in PreDestroyMethod
 
 ---
 
-### ✅ Advantages of Dependency Injection
+### Advantages of Dependency Injection
 
 - Makes classes **independent of their dependencies**
 - Promotes **loose coupling**
@@ -1420,7 +1420,7 @@ Bean is about to destroy, in PreDestroyMethod
 
 ---
 
-### 💡 Key Idea
+### Key Idea
 
 > Instead of creating dependencies inside the class, Spring injects them from outside.
 			
