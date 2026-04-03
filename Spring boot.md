@@ -3414,4 +3414,146 @@ Singleton bean is trying to inject Request bean ❌
 ---
 
 
+## 📌 Resolving Scope Mismatch using Scoped Proxy
+
+---
+
+## ❌ Problem Recap
+
+- `Singleton` bean is created at application startup  
+- `Request` bean is created only when an HTTP request is available  
+
+👉 So:
+
+```text
+No active HTTP request at startup ❌
+→ Request bean cannot be created
+→ Application fails
+```
+
+---
+
+## 💥 Problem Example
+
+```java
+@RestController
+@Scope("singleton")
+@RequestMapping("/api")
+public class TestController1 {
+
+    @Autowired
+    private User user;
+
+    public TestController1() {
+        System.out.println("TestController1 instance initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("TestController1 object hashCode: " + this.hashCode()
+                + " | User object hashCode: " + user.hashCode());
+    }
+
+    @GetMapping("/fetchUser")
+    public ResponseEntity<String> getUserDetails() {
+        System.out.println("fetchUser api invoked");
+        return ResponseEntity.ok("response");
+    }
+}
+```
+
+---
+
+## ✅ Solution: Use Scoped Proxy
+
+```java
+@Component
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class User {
+
+    public User() {
+        System.out.println("User initialization");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("User object hashCode: " + this.hashCode());
+    }
+
+    public void dummyMethod() {
+        // some logic
+    }
+}
+```
+
+---
+
+## 💡 How it works?
+
+- Spring **does NOT inject real User object**
+- Instead, it injects a **proxy object**
+
+👉 During HTTP request:
+- Proxy creates real `User` object  
+- Delegates method calls to it  
+
+---
+
+## 🔄 Flow
+
+```text
+1. Application starts
+2. Singleton bean is created
+3. Proxy of User is injected (not real object)
+4. HTTP request comes
+5. Real User object is created
+6. Proxy forwards call to real object
+```
+
+---
+
+## 🖥️ Output Behavior
+
+```text
+TestController1 instance initialization
+TestController1 object hashCode: 153952444 | User object hashCode: 0 (proxy)
+
+--- HTTP Request ---
+
+User initialization
+User object hashCode: 987654321
+fetchUser api invoked
+```
+
+---
+
+## 🎯 Key Understanding
+
+> Scoped proxy allows injecting **short-lived beans into long-lived beans** safely.
+
+---
+
+## 🔥 Important Concept
+
+```text
+Without Proxy → ❌ fails  
+With Proxy → ✅ works perfectly
+```
+
+---
+
+## 🧠 Interview Line
+
+> “Scoped proxy creates a placeholder object that resolves the actual bean at runtime based on the current scope.”
+
+---
+
+## ⚠️ Notes
+
+- Use `ScopedProxyMode.TARGET_CLASS` for class-based proxy (CGLIB)  
+- Works for request, session scopes  
+- Very important for real-world applications  
+
+---
+
 
