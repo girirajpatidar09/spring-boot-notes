@@ -2136,7 +2136,124 @@ class UserTest {
 
 > Constructor Injection makes unit testing easy because dependencies can be manually injected using mocks.
 
----		
+---	
+
+
+
+
+## 📌 Common Issues in Dependency Injection
+
+---
+
+## ❌ 1. Circular Dependency
+
+A circular dependency occurs when two or more beans depend on each other.
+
+---
+
+### 💥 Example
+
+```java
+@Component
+public class Order {
+
+    @Autowired
+    private Invoice invoice;
+
+    public Order() {
+        System.out.println("order initialized");
+    }
+}
+```
+
+```java
+@Component
+public class Invoice {
+
+    @Autowired
+    private Order order;
+
+    public Invoice() {
+        System.out.println("invoice initialized");
+    }
+}
+```
+
+---
+
+### 🔁 Dependency Flow
+
+```text
+Order → Invoice → Order → Invoice (cycle)
+```
+
+---
+
+### 💥 Error
+
+```text
+APPLICATION FAILED TO START
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+| invoice
+↑     ↓
+| order
+└─────┘
+```
+
+---
+
+## ❓ Why this happens?
+
+- Spring tries to create `Order`
+- `Order` needs `Invoice`
+- `Invoice` needs `Order`
+- Infinite loop → ❌ Application fails
+
+---
+
+## ✅ How to Fix Circular Dependency
+
+### ✔️ Option 1: Use `@Lazy`
+
+```java
+@Component
+public class Order {
+
+    @Autowired
+    @Lazy
+    private Invoice invoice;
+}
+```
+
+👉 Delays initialization → breaks the cycle
+
+---
+
+### ✔️ Option 2: Use Constructor Injection (Recommended 🔥)
+
+👉 Helps detect circular dependency at startup (fail-fast)
+
+---
+
+### ✔️ Option 3: Redesign the Code
+
+- Avoid tight coupling  
+- Introduce a third service  
+- Use interfaces or events  
+
+---
+
+## 🎯 Key Point
+
+> Circular dependency is a design problem ❌  
+> Best solution is to **refactor the code**, not just fix it technically.
+
+---	
 
 
 
