@@ -1798,7 +1798,7 @@ public class User {
 ### 💥 Error
 
 ```text
-BeanInstantiationException: Failed to instantiate [User]: No default constructor found
+BeanCreationException: Error creating bean with name 'user' defined : No default constructor found
 ```
 
 👉 Spring gets confused ❌  
@@ -1873,7 +1873,173 @@ User initialized with only Invoice
 - Best practice: Prefer **single constructor** when possible  
 
 ---
-			
+		
+
+
+## 📌 Why Constructor Injection is Recommended (Advantages)
+
+---
+
+### ✅ 1. Mandatory Dependencies Initialized at Creation
+
+- All required dependencies are created at the time of **object initialization**
+- Ensures object is **fully initialized (100%)**
+
+#### ✔ Benefits:
+
+- Avoids **NullPointerException (NPE)** during runtime  
+- No need for unnecessary **null checks**
+
+---
+
+### ✅ 2. Supports Immutability
+
+- We can create **immutable objects** using constructor injection
+- Dependencies can be marked as `final`
+
+---
+
+## ✅ Correct Example (Recommended ✔️)
+
+```java
+@Component
+public class User {
+
+    private final Order order;
+
+    public User(Order order) {
+        this.order = order;
+        System.out.println("User initialized");
+    }
+}
+```
+
+---
+
+## ❌ Incorrect Example (Not Recommended)
+
+```java
+@Component
+public class User {
+
+    @Autowired
+    private final Order order; // ❌ Not allowed
+
+    public User() {
+        System.out.println("User initialized");
+    }
+}
+```
+
+---
+
+### 💡 Key Point
+
+> Constructor Injection ensures all dependencies are available at creation time  
+> and allows creation of **safe, immutable objects**
+
+---
+
+
+
+
+## 📌 Constructor Injection Advantage: Fail Fast
+
+---
+
+### ✅ 3. Fail Fast Behavior
+
+- If any required dependency is missing, the application **fails immediately**
+- Failure happens at **startup (initialization time)** instead of runtime
+
+---
+
+## ❌ Problem with Field Injection
+
+```java
+@Component
+public class User {
+
+    public Order order;
+
+    public User() {
+        System.out.println("User initialized");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println(order == null); // true → dependency missing
+    }
+}
+```
+
+```java
+@Component
+public class Order {
+
+    public Order() {
+        System.out.println("order initialized");
+    }
+}
+```
+
+---
+
+### ⚠️ Issue
+
+- Application starts successfully ❌  
+- But dependency is `null`  
+- Can cause **NullPointerException at runtime**
+
+---
+
+## ✅ Constructor Injection (Fail Fast ✔️)
+
+```java
+@Component
+public class User {
+
+    private Order order;
+
+    public User(Order order) {
+        this.order = order;
+        System.out.println("User initialized");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println(order == null); // always false
+    }
+}
+```
+
+---
+
+### 💥 If Dependency is Missing
+
+```text
+APPLICATION FAILED TO START
+
+Description:
+Parameter 0 of constructor in User required a bean of type 'Order' that could not be found
+```
+
+---
+
+## 💡 Key Point
+
+> Constructor Injection ensures that if a dependency is missing,  
+> the application fails immediately (Fail Fast) instead of failing later at runtime.
+
+---
+
+## 🎯 Summary
+
+- Field Injection → ❌ Runtime failure (late detection)  
+- Constructor Injection → ✅ Startup failure (early detection)  
+- Early failure = **easier debugging + safer application**
+
+---		
 
 
 
