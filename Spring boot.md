@@ -3630,14 +3630,11 @@ end of the session
 Again hitting api means new session
 
 TestController1 instance initialization
-TestController1 object hashCode : 896745   User object hashCode: : 12345
+TestController1 object hashCode : 896745s   User object hashCode: : 12345
 fetchUser api Invoked
+``` 
 
 
- 
+ ---
 
-
-
-
----
 
