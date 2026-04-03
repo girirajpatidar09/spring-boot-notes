@@ -2663,6 +2663,7 @@ public class User {
 ## 🖥️ Output
 
 ```text
+Offline order initialized
 Online order initialized
 User initialized
 ```
@@ -2682,9 +2683,114 @@ User initialized
 
 ---
 
-## ⚠️ Note
 
-- If you need a **specific bean**, use `@Qualifier` instead  
-- `@Primary` is used for **default selection**
+
+
+## 📌 Solution: Using @Qualifier Annotation
 
 ---
+
+## 📦 Interface
+
+```java
+public interface Order {
+}
+```
+
+---
+
+## ❌ Problem Recap
+
+- Multiple implementations of `Order`:
+  - `OnlineOrder`
+  - `OfflineOrder`
+- Spring gets confused → ❌ which bean to inject?
+
+---
+
+## ✅ Solution: Use `@Qualifier`
+
+---
+
+### 👤 User Class
+
+```java
+@Component
+public class User {
+
+    @Autowired
+    @Qualifier("offlineOrderName")
+    private Order order;
+
+    public User() {
+        System.out.println("User initialized");
+    }
+}
+```
+
+---
+
+### 📦 OnlineOrder
+
+```java
+@Component
+@Qualifier("onlineOrderName")
+public class OnlineOrder implements Order {
+
+    public OnlineOrder() {
+        System.out.println("Online order initialized");
+    }
+}
+```
+
+---
+
+### 📦 OfflineOrder
+
+```java
+@Component
+@Qualifier("offlineOrderName")
+public class OfflineOrder implements Order {
+
+    public OfflineOrder() {
+        System.out.println("Offline order initialized");
+    }
+}
+```
+
+---
+
+## 🖥️ Output
+
+```text
+Offline order initialized
+Online order initialized
+User initialized
+```
+
+---
+
+## 💡 How it works?
+
+- `@Qualifier` tells Spring:
+  👉 “Inject THIS specific bean”
+
+- Matches bean name with qualifier value
+
+---
+
+## 🔥 Key Difference
+
+| Annotation     | Purpose |
+|----------------|--------|
+| `@Primary`     | Default bean selection |
+| `@Qualifier`   | Specific bean selection |
+
+---
+
+## 🎯 Key Point
+
+> Use `@Qualifier` when multiple beans exist and you want to inject a specific one.
+
+---
+
