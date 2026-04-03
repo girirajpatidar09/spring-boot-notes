@@ -2461,3 +2461,53 @@ Order initialized
 
 ---
 
+## 📌 Resolving Circular Dependency using @PostConstruct
+
+---
+
+## ✅ Example
+
+```java
+@Component
+public class Order {
+
+    @Autowired
+    private Invoice invoice;
+
+    public Order() {
+        System.out.println("Order initialized");
+    }
+
+    @PostConstruct
+    public void initialize() {
+        invoice.setOrder(this);
+    }
+}
+```
+
+```java
+@Component
+public class Invoice {
+
+    private Order order;
+
+    public Invoice() {
+        System.out.println("Invoice initialized");
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+}
+```
+
+---
+
+## 🖥️ Output
+
+```text
+Invoice initialized
+Order initialized
+```
+
+---
