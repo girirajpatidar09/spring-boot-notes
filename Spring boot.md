@@ -1276,7 +1276,7 @@ Lazy: initializing Order
 
 ###  Step 4: Perform tasks before Bean is used
 
- ## Step 4: Perform tasks before Bean is used
+ 
 
 Perform any task before the Bean is used in the application.
 
