@@ -1517,7 +1517,7 @@ public class User {
 
 ---
 
-### ⚠️ Why not immutable?
+###  Why not immutable?
 
 ```java
 private final Order order; // ❌ Not allowed with setter injection
@@ -1529,10 +1529,139 @@ private final Order order; // ❌ Not allowed with setter injection
 
 ---
 
-### 💡 Key Point
+###  Key Point
 
 > Setter Injection allows flexibility but does not support immutability.  
 > Use it only for **optional dependencies**.
+
+
+
+## 📌 Issues with Tight Coupling
+
+### ❌ Problem
+
+- Both `User` and `Order` classes are **tightly coupled**
+
+- If the object creation logic of `Order` changes  
+  (e.g., it becomes an interface with multiple implementations),  
+  then the `User` class also needs to be modified ❌
+
+---
+
+### 💥 Example (Tight Coupling ❌)
+
+```java
+public class User {
+
+    Order order = new OnlineOrder(); // tightly coupled
+
+    public User() {
+        System.out.println("initializing user");
+    }
+}
+```
+
+---
+
+### ✅ Better Design (Using Abstraction)
+
+```java
+public interface Order {
+}
+```
+
+```java
+public class OnlineOrder implements Order {
+}
+```
+
+```java
+public class OfflineOrder implements Order {
+}
+```
+
+---
+
+## 📌 Dependency Inversion Principle (DIP)
+
+### ❌ Violates DIP
+
+```java
+public class User {
+
+    Order order = new OnlineOrder(); // depends on concrete class ❌
+
+    public User() {
+        System.out.println("initializing user");
+    }
+}
+```
+
+---
+
+### ✅ Follows DIP
+
+```java
+public class User {
+
+    Order order;
+
+    public User(Order orderObj) {
+        this.order = orderObj;
+    }
+}
+```
+
+---
+
+### 💡 Key Rule of DIP
+
+> ❗ Do NOT depend on concrete implementations  
+> ✅ Depend on abstractions (interfaces)
+
+---
+
+## 📌 How Spring Boot Achieves DIP?
+
+### 🚀 Through Dependency Injection
+
+- Using Dependency Injection, we can make our class **independent of its dependencies**
+- It removes dependency on **concrete implementation**
+- Dependencies are injected from an **external source (IoC Container)**
+
+---
+
+### ✅ Example with Spring
+
+```java
+@Component
+public class User {
+
+    @Autowired
+    private Order order;
+}
+```
+
+```java
+@Component
+public class Order {
+}
+```
+
+---
+
+### 🔄 How @Autowired Works
+
+- Spring looks for a bean of the required type  
+- If found → Spring injects it automatically  
+
+---
+
+## 🎯 Final Summary
+
+- Tight coupling → ❌ bad design  
+- DIP → depend on abstraction  
+- Spring solves this using → **Dependency Injection**
 			
 
 
