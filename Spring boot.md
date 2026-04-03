@@ -1266,9 +1266,15 @@ Lazy: initializing Order
 
 ###  Step 4: Perform tasks before Bean is used
 
- Perform any task before Bean to be used in application.
- 
- 
+ ## Step 4: Perform tasks before Bean is used
+
+Perform any task before the Bean is used in the application.
+
+---
+
+### Code Example
+
+```java
 @Component
 public class User {
 
@@ -1284,10 +1290,9 @@ public class User {
         System.out.println("initializing user");
     }
 }
+```
 
-
-
-
+```java
 @Lazy
 @Component
 public class Order {
@@ -1296,47 +1301,17 @@ public class Order {
         System.out.println("Lazy: initializing Order");
     }
 }
+```
 
+---
 
+ Output
 
-Output ::
-
+```text
 initializing user
 Lazy: initializing Order
 Bean has been constructed and dependencies have been injected
-		  
-		 
-		   
-					
-
-		   
-		   
-		   
-	
-
-
-
-
-
-
-
-
-	   
-
-	
-		
-
-	   
-
-	   
-	   
-
-		
-	   
-	   
-	   
-	   
-	   
+```
 
 			
 
