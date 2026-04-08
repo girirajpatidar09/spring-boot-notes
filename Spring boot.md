@@ -3638,3 +3638,72 @@ fetchUser api Invoked
  ---
 
 
+
+#  CommandLineRunner in Spring Boot
+
+---
+
+## 💡 Definition
+
+👉 `CommandLineRunner` is an interface in Spring Boot that allows execution of code **after the application context is fully loaded**.
+
+---
+
+## 📦 Code
+
+### 🔹 Main Class
+
+```java
+@SpringBootApplication
+public class Demo {
+
+    public static void main(String[] args) {
+
+        SpringApplication.run(Demo.class, args);
+
+        System.out.println("Main Method Ends");
+    }
+}
+```
+
+---
+
+### 🔹 Runner Class
+
+```java
+@Component
+public class MyRunner implements CommandLineRunner {
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        System.out.println("This run method is executed after configuration load");
+    }
+}
+```
+
+---
+
+## 🖥️ Output
+
+```text
+This run method is executed after configuration load
+Main Method Ends
+```
+
+---
+
+## 🔄 Execution Flow (Important 🔥)
+
+```text
+1. main() starts
+2. SpringApplication.run() called
+3. Spring Boot initializes context
+4. All beans are created
+5. CommandLineRunner.run() executes
+6. Control returns to main()
+7. "Main Method Ends" prints
+```
+
+---
+
