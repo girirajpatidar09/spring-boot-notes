@@ -3750,3 +3750,54 @@ Spring Boot supports standard logging levels:
 | INFO   | General application events      |
 | WARN   | Warning messages                |
 | ERROR  | Error events                    |
+
+
+## 🔹 Log File Configuration
+
+You can specify a directory where log files will be stored using:
+
+```properties
+logging.file.path=logs
+```
+---
+
+
+
+### 📌 Explanation
+
+- `logging.file.path` → Defines the folder where log files will be created  
+- `logs` → Log files will be stored inside a folder named `logs` in your project root  
+- By default name of file is spring.log
+
+
+
+## 🔹 Log File Name Configuration
+
+You can specify the name of the log file using:
+
+```properties
+logging.file.name=Demo.log
+```
+---
+
+### 📌 Explanation
+
+- `logging.file.name` → Defines the name of the log file  
+- `Demo.log` → Logs will be written into a file named `Demo.log` 
+
+
+
+
+## 🔹 Log File Configuration (Path + Name)
+
+```properties
+logging.file.path=logs
+logging.file.name=logs/Demo.log
+
+```
+
+``` text
+Here insids logs folder Demo.log is created
+
+--- 
+
