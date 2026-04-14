@@ -3794,6 +3794,13 @@ logging.file.name=Demo.log
 logging.file.path=logs
 logging.file.name=logs/Demo.log
 
+
+Or another syntax to write 
+
+logging.file.path=logs
+logging.file.name=${logging.file.path}/Demo.log
+
+ 
 ```
 
 ``` text
