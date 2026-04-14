@@ -3800,6 +3800,13 @@ Or another syntax to write
 logging.file.path=logs
 logging.file.name=${logging.file.path}/Demo.log
 
+Or another syntax to write
+
+spring.application.name=Demo
+logging.file.path=logs
+logging.file.name=${logging.file.path}/${spring.application.name}.log
+
+
  
 ```
 
