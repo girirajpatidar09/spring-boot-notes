@@ -3707,3 +3707,46 @@ Main Method Ends
 
 ---
 
+
+
+# 📘 Logging in Spring Boot
+
+## 🔹 What is Logging?
+Logging in Spring Boot is the process of recording information about what your application is doing while it runs.
+
+It includes:
+- Application flow messages  
+- Errors and exceptions  
+- Warning messages  
+- Debugging details  
+
+---
+
+## 🔹 Why Logging is Important
+
+Logging helps you to:
+
+- Track application behavior  
+- Debug issues and errors  
+- Monitor performance  
+- Audit system activity  
+
+---
+
+## 🔹 Default Logging in Spring Boot
+
+
+Spring Boot uses SLF4J (Simple Logging Facade for Java) with Logback as the default logging framework.
+
+
+## 🔹 Logging Levels
+
+Spring Boot supports standard logging levels:
+
+| Level  | Description                     |
+|--------|---------------------------------|
+| TRACE  | Very detailed information       |
+| DEBUG  | Debugging information           |
+| INFO   | General application events      |
+| WARN   | Warning messages                |
+| ERROR  | Error events                    |
